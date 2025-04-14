@@ -148,7 +148,7 @@
                                 <div class="service-icon">
                                     <i class="fa fa-landmark"></i>
                                 </div>
-                                <h3>Droit civil</h3>
+                                <h3>Affaires civiles</h3>
                                 <p>
                                     Lorem ipsum dolor sit amet elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non
                                 </p>
@@ -160,7 +160,7 @@
                                 <div class="service-icon">
                                     <i class="fa fa-users"></i>
                                 </div>
-                                <h3>Droit de la famille</h3>
+                                <h3>Affaires pénales</h3>
                                 <p>
                                     Lorem ipsum dolor sit amet elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non
                                 </p>
@@ -172,7 +172,7 @@
                                 <div class="service-icon">
                                     <i class="fa fa-hand-holding-usd"></i>
                                 </div>
-                                <h3>Droit des affaires</h3>
+                                <h3>Affaires administratives</h3>
                                 <p>
                                     Lorem ipsum dolor sit amet elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non
                                 </p>
@@ -184,7 +184,7 @@
                                 <div class="service-icon">
                                     <i class="fa fa-graduation-cap"></i>
                                 </div>
-                                <h3>Droit de l’éducation</h3>
+                                <h3>Affaires commerciales </h3>
                                 <p>
                                     Lorem ipsum dolor sit amet elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non
                                 </p>
@@ -196,7 +196,7 @@
                                 <div class="service-icon">
                                     <i class="fa fa-gavel"></i>
                                 </div>
-                                <h3>Droit pénal</h3>
+                                <h3>Elaboration d’un contrat </h3>
                                 <p>
                                     Lorem ipsum dolor sit amet elit. Phasellus nec pretium mi. Curabitur facilisis ornare velit non
                                 </p>
@@ -301,60 +301,91 @@
                 </div>
             </div>
         </section>
-        <!-- Team End -->
-    <section class="ftco-consultation ftco-section relative" style="background-image: url('{{ asset('assets/img/bg_2.jpg') }}'); background-size: cover; background-position: center;">
-          <!-- Overlay sombre pour améliorer la lisibilité -->
-              <div class="absolute inset-0 bg-black opacity-40"></div>
-    
-    <!-- Section contenant le formulaire avec effet de flou -->
-    <div class="container mx-auto px-4 py-20 relative z-10">
-        <div class="row flex md:justify-center">
-            <div class="col-md-6 half p-8 bg-white bg-opacity-60 rounded-xl shadow-lg backdrop-blur-lg">
-                <!-- Texte principal : "Prise de rendez-vous" -->
-                <span class="subheading text-blue-600 block text-xl mb-2">Prise de rendez-vous</span>
-                
-                <!-- Titre de la section -->
-                <h2 class="mb-6 text-3xl text-gray-800 font-semibold">Consultation gratuite</h2>
-
-                <!-- Formulaire -->
-                <form action="#" method="POST" class="consultation space-y-6" enctype="multipart/form-data">
-                    @csrf
-                    <!-- Nom -->
-                    <div class="form-group">
-                        <input type="text" name="name" class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Votre nom" required>
+<!-- informations du client au cabinet -->
+<section class="p-4 flex items-end min-h-screen" style="background-image: url('{{ asset('assets/img/single.jpg') }}');">
+    <div class="container col-md-8 p-3" style="background-color: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
+          <!-- <h2 class="mb-4">Prise de rendez-vous</h2> -->
+           <div class="text-center p-8">
+                      <!-- Texte principal : "Prise de rendez-vous" -->
+                      <span class="subheading text-indigo-500 mb-4 text-lg font-semibold">Prise de rendez-vous</span>
+                             
+                      <!-- Titre de la section -->
+                      <h2 class="text-4xl text-gray-500 font-bold leading-tight">Consultation gratuite</h2>
+           </div>
+   <!-- Section contenant le texte avant le formulaire -->
+        <div class="p-8 bg-white/30 rounded-xl shadow-2xl backdrop-blur-lg mb-8 w-full max-w-4xl">
+               
+            <form id="clientForm" action="{{ route('client.store') }}" method="POST" enctype="multipart/form-data" class="text-dark fw-bold">
+                      @csrf
+        
+                <!-- ÉTAPE 1: Infos personnelles -->
+                <div class="step active">
+                    <h4>1. Informations personnelles</h4>
+                    <div class="mb-3">
+                        <label>Nom complet</label>
+                        <input type="text" name="nom" class="form-control" required>
                     </div>
-                    
-                    <!-- Email -->
-                    <div class="form-group">
-                        <input type="email" name="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Votre email" required>
+                    <div class="mb-3">
+                        <label>Email</label>
+                        <input type="email" name="email" class="form-control" required>
                     </div>
-
-                    <!-- Sujet -->
-                    <div class="form-group">
-                        <input type="text" name="subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Objet" required>
+                    <div class="mb-3">
+                        <label>Téléphone</label>
+                        <input type="tel" name="telephone" class="form-control" required>
                     </div>
-
-                    <!-- Message -->
-                    <div class="form-group">
-                        <textarea name="message" id="message" cols="30" rows="7" class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Message" required></textarea>
+                    <div class="mb-3">
+                        <label>Adresse</label>
+                        <input type="text" name="adresse" class="form-control" required>
                     </div>
-
-                    <!-- Champ pour le fichier PDF -->
-                    <div class="form-group">
-                        <label for="pdf_file" class="text-white">Joindre un fichier PDF</label>
-                        <input type="file" name="pdf_file" class="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" accept=".pdf" required>
+                    <div class="mb-3">
+                        <label>Pièce d'identité</label>
+                        <input type="file" name="piece_identite" class="form-control" accept=".pdf,.jpg,.jpeg,.png" required>
                     </div>
-
-                    <!-- Bouton de soumission -->
-                    <div class="form-group">
-                        <input type="submit" value="Envoyer le message" class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition duration-300">
+                </div>
+        
+                <!-- ÉTAPE 2: Choix du service -->
+                <div class="step">
+                    <h4>2. Service souhaité</h4>
+                    <div class="mb-3">
+                        <label>Type de service</label>
+                        <select name="type_service" class="form-control" required>
+                            <option value="">-- Choisir un service --</option>
+                            <option value="conseil">Conseiller juridique</option>
+                            <option value="avocat">Avocat (défense, assigné...)</option>
+                            <option value="juriste">Jeune juriste (entreprises)</option>
+                            <option value="collaborateur">Collaborateur</option>
+                        </select>
                     </div>
-                </form>
-            </div>
+                    <div class="mb-3">
+                        <label>Description du problème</label>
+                        <textarea name="probleme" class="form-control" rows="4" required></textarea>
+                    </div>
+                </div>
+        
+                <!-- ÉTAPE 3: Détails supplémentaires -->
+                <div class="step">
+                    <h4>3. Détails supplémentaires</h4>
+                    <div class="mb-3">
+                        <label>Documents (PDF/PNG/JPEG)</label>
+                        <input type="file" name="documents[]" class="form-control" multiple accept=".pdf,.jpg,.jpeg,.png" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Informations sur la partie adverse</label>
+                        <input type="text" name="adverse_info" class="form-control" required>
+                    </div>
+                </div>
+        
+                <!-- Navigation -->
+                <div class="d-flex justify-content-between mt-4">
+                    <button type="button" id="prevBtn" class="btn btn-secondary" onclick="nextStep(-1)">Précédent</button>
+                    <button type="button" id="nextBtn" class="btn btn-primary" onclick="nextStep(1)">Suivant</button>
+                    <button type="submit" id="submitBtn" class="btn btn-success d-none">Soumettre</button>
+                </div>
+            </form>
         </div>
     </div>
 </section>
-  
+  <!-- fin information client -->
 <section id="avisClient">
     <!-- Testimonial Start -->
     <div class="testimonial">
@@ -421,7 +452,7 @@
                     <i class="fa fa-quote-right"></i>
                     <div class="row align-items-center">
                         <div class="col-3">
-                            <img src="{{ asset('img/testimonial-2.jpg') }}" alt="Testimonial Image">
+                            <img src="{{ asset('img/testimonial-1.JPG') }}" alt="Testimonial Image">
                         </div>
                         <div class="col-9">
                             <h2>Client 4</h2>

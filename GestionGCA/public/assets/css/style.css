@@ -1229,7 +1229,7 @@ p {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: #a17d3e;
+    background-color: #ca8b1e;
 }
 
 .testimonial .owl-dot.active {
@@ -1816,8 +1816,11 @@ p {
     color: #121518;
     background: #aa9166;
 }
-
-
+/*******************************/
+/********* information client CSS **********/
+/*******************************/
+.step { display: none; }
+.step.active { display: block; }
 /*******************************/
 /********* Footer CSS **********/
 /*******************************/

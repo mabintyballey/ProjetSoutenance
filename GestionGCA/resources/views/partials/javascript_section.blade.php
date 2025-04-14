@@ -88,11 +88,13 @@ $(document).ready(function () {
         }, 30); 
     });
 });
- // Testimonials carousel
  $(".testimonials-carousel").owlCarousel({
         autoplay: true,
-        dots: true,
+        nav: false,
+        dots: true, 
         loop: true,
+        autoplayTimeout: 5000,
+        smartSpeed: 800,
         responsive: {
             0:{
                 items:1
@@ -124,7 +126,42 @@ $(document).ready(function () {
         toggleNavbarMethod();
         $(window).resize(toggleNavbarMethod);
     });
+// information fourni par le client
+let currentStep = 0;
+    const steps = document.querySelectorAll('.step');
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const submitBtn = document.getElementById('submitBtn');
 
+    function showStep(stepIndex) {
+        steps.forEach((step, i) => {
+            step.classList.toggle('active', i === stepIndex);
+        });
+        prevBtn.style.display = stepIndex > 0 ? 'inline-block' : 'none';
+        nextBtn.classList.toggle('d-none', stepIndex === steps.length - 1);
+        submitBtn.classList.toggle('d-none', stepIndex !== steps.length - 1);
+    }
+
+    function nextStep(n) {
+        if (n === 1 && !validateStep()) return;
+        currentStep += n;
+        if (currentStep >= steps.length) currentStep = steps.length - 1;
+        if (currentStep < 0) currentStep = 0;
+        showStep(currentStep);
+    }
+
+    function validateStep() {
+        const inputs = steps[currentStep].querySelectorAll('input, textarea, select');
+        for (const input of inputs) {
+            if (!input.checkValidity()) {
+                input.reportValidity();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    showStep(currentStep);
     //avis client
     $(document).ready(function(){
     $(".testimonials-carousel").owlCarousel({
@@ -135,8 +172,8 @@ $(document).ready(function () {
         autoplay: true, 
         autoplayTimeout: 3000,  
         autoplayHoverPause: true,  
-        nav: true,  
-        navText: ["<", ">"], 
+        // nav: true,  
+        // navText: ["<", ">"], 
         responsive: {
             0: {
                 items: 1  

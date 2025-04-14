@@ -35,6 +35,8 @@
      <!-- CSS d'Owl Carousel -->
 	 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owl.carousel/dist/assets/owl.carousel.min.css">
       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/owl.carousel/dist/assets/owl.theme.default.min.css">
+	  <link rel="stylesheet" href="path/to/owl.carousel.min.css">
+      <link rel="stylesheet" href="path/to/owl.theme.default.min.css">
 
 	<!-- Magnific Popup -->
 	<link rel="stylesheet" href="css/magnific-popup.css">

@@ -1,10 +1,10 @@
-<div class="main-header">
+<div class="main-header" style="background-color: #2c3e50;">
     <div class="main-header-logo">
       <!-- Logo Header -->
       <div class="logo-header" data-background-color="dark">
         <a href="index.html" class="logo">
           <img
-            src="{{ asset('administration/assets/img/ubo_logo.jpg') }}"
+            src="{{ asset('administration/assets/img/logo_cabinet.jpg') }}"
             alt="navbar brand"
             class="navbar-brand"
             height="50"
@@ -142,13 +142,13 @@
             >
               <div class="avatar-sm">
                 <img
-                  src="{{ asset('administration/assets/img/ubo_logo.jpg') }}"
+                  src="{{ asset('assets/img/logo_cabinet.png') }}"
                   alt="..."
                   class="avatar-img rounded-circle"
                 />
               </div>
               <span class="profile-username">
-                <span class="fw-bold">John Doe</span>
+                <span class="fw-bold" style="color: #aa9166">J U G E - C A B I N E T - D'A V O C A T</span>
               </span>
             </a>
             <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -157,14 +157,14 @@
                   <div class="user-box">
                     <div class="avatar-lg">
                       <img
-                        src="{{ asset('administration/assets/img/ubo_logo.jpg') }}"
+                        src="{{ asset('assets/img/logo_cabinet.png') }}"
                         alt="image profile"
                         class="avatar-img rounded"
                       />
                     </div>
                     <div class="u-text">
-                      <h4>John Doe</h4>
-                      <p class="text-muted">johndoe@mail.com</p>
+                      <h4>Juge Cabinet D'avocat</h4>
+                      <p class="text-muted">judecabintavocat@mail.com</p>
                     </div>
                   </div>
                 </li>

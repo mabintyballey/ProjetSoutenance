@@ -52,7 +52,7 @@
 
                         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                             <div class="navbar-nav mr-auto">
-                                <a href="index.html" class="nav-item nav-link active">Accueil</a>
+                                <a href="#carousel" class="nav-item nav-link active">Accueil</a>
                                 <a href="#bienvenue" class="nav-item nav-link">À propos</a>
                                 <a href="#services" class="nav-item nav-link">Nos Services</a>
                                 <a href="#equipe" class="nav-item nav-link">L'équipe</a>
@@ -61,7 +61,7 @@
                             </div>
                             <div class="ml-auto">
                                  <!-- Call to Action (CTA) -->
-                                <a class="btn" href="#">Se Connecter</a>
+                                <a class="btn" href="{{ route('register') }}">Se Connecter</a>
                             </div>
                         </div>
                     </nav>

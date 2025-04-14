@@ -1,15 +1,18 @@
 <!-- Sidebar -->
-<div class="sidebar" data-background-color="dark">
-    <div class="sidebar-logo">
+<div class="sidebar" style="background-color: #1a252f;">
+    <div class="sidebar-logo pt-3">
       <!-- Logo Header -->
-      <div class="logo-header" data-background-color="dark">
+      <div class="logo-header" style="background-color: #1a252f">
         <a href="{{ route('administration.dashboard') }}" class="logo">
-          <img
-            src="{{ asset('administration/assets/img/ubo_logo.jpg') }}"
+        <img
+            src="{{ asset('assets/img/logobg.png') }}"
             alt="navbar brand"
             class="navbar-brand"
-            height="50"
-          />
+            height="90"  
+            width="auto"
+       />
+
+
         </a>
 
         <div class="nav-toggle">
@@ -32,7 +35,7 @@
       <div class="sidebar-content">
         <ul class="nav nav-secondary">
           <li class="nav-item {{ Route::is('administration.dashboard') ? 'active' : '' }}">
-            <a href="{{ route('administration.dashboard') }}">
+            <a href="{{ route('administration.dashboard') }}" style="background-color: #2c3e50;">
               <i class="fas fa-home"></i>
               <p>Tableau de bord</p>
             </a>
@@ -48,56 +51,57 @@
           <li class="nav-item {{ Route::is('proffesseur.list') ? 'active' : '' }}">
             <a href="#">
               <i class="icon-briefcase"></i>
-              <p>avocat</p>
+              <p>Gestion des dossiers</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="#">
                 <i class="icon-user"></i>
-                <p>avocat</p>
+                <p>Clients</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="#">
               <i class="icon-graduation"></i>
-              <p>avocat</p>
+              <p>Avocats</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="#">
-              <i class="icon-book-open"></i>
-              <p>avocat</p>
+            <i class="fa fa-envelope"></i>
+              <p>Messagerie</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="">
-              <i class="icon-folder-alt"></i>
-              <p>avocat</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#">
               <i class="icon-grid"></i>
-              <p>Classes</p>
+              <p>Avocat juge</p>
             </a>
           </li>
           <li class="nav-item">
             <a href="#">
-              <i class="icon-calendar"></i>
-              <p>avocat</p>
+              <i class="icon-folder-alt"></i>
+              <p>Administration</p>
+            </a>
+          </li>
+           <!--
+          <li class="nav-item">
+          <a href="">
+              <i class="icon-grid"></i>
+              <p>Avocat juge</p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="">
+            <a href="#">
               <i class="icon-note"></i>
-              <p>avocat</p>
+              <p>Avocat juge</p>
             </a>
-          </li>
+          </li> -->
           <div class="divider"></div>
           <li class="nav-item">
             <a href="">
               <i class="icon-information"></i>
-              <p>avocat</p>
+              <p>Mon profile</p>
             </a>
           </li>
           <li class="nav-item">

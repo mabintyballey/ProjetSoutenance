@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Kaiadmin - Bootstrap 5 Admin Dashboard</title>
+    <title>Juge Cabinet D'avocat</title>
     <meta
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
       name="viewport"
@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> 
     <link
       rel="icon"
-      href="{{ asset('administration/assets/img/ubo_logo.jpg') }}"
+      href="{{ asset('assets/img/logo_cabinet.png') }}"
       type="image/x-icon"
     />
 

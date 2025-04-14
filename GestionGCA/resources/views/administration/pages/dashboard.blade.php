@@ -23,7 +23,7 @@
               </div>
               <div class="col col-stats ms-3 ms-sm-0">
                 <div class="numbers">
-                  <p class="card-category">Total Etudiants</p>
+                  <p class="card-category">Total Client</p>
                   <h4 class="card-title">1 294</h4>
                 </div>
               </div>
@@ -45,7 +45,7 @@
               </div>
               <div class="col col-stats ms-3 ms-sm-0">
                 <div class="numbers">
-                  <p class="card-category">Tot. Avocats</p>
+                  <p class="card-category">Total. Avocats</p>
                   <h4 class="card-title">130</h4>
                 </div>
               </div>
@@ -66,7 +66,7 @@
               </div>
               <div class="col col-stats ms-3 ms-sm-0">
                 <div class="numbers">
-                  <p class="card-category">Avocats</p>
+                  <p class="card-category">Dossiers</p>
                   <h4 class="card-title">4</h4>
                 </div>
               </div>
@@ -87,7 +87,7 @@
               </div>
               <div class="col col-stats ms-3 ms-sm-0">
                 <div class="numbers">
-                  <p class="card-category">Avocats</p>
+                  <p class="card-category">Matières</p>
                   <h4 class="card-title">40</h4>
                 </div>
               </div>
@@ -136,7 +136,7 @@
             <div class="card card-round">
               <div class="card-body">
                 <div class="card-head-row card-tools-still-right">
-                  <div class="card-title">Nouveaux client</div>
+                  <div class="card-title">Nouveaux Clients</div>
                   <div class="card-tools">
                     <div class="dropdown">
                       <button
