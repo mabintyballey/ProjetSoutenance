@@ -1,103 +1,72 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Models\Client;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Dashboard client
      */
-    public function index()
+//     public function updateProfile(Request $request)
+//    {
+//     $user = auth()->user();
+//     $user->update($request->only(['prenom', 'telephone', 'adresse']));
+//     $user->statut_validation = 'en_attente';
+//     $user->save();
+
+//     return redirect()->route('client.dashboard')->with('message', 'Profil mis à jour. En attente de validation.');
+//   }
+
+    public function dashboard()
     {
-        
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'nom' => 'required|string|max:255',
-            'email' => 'required|email',
-            'telephone' => 'required|string|max:20',
-            'adresse' => 'required|string',
-            'piece_identite' => 'required|file|mimes:pdf,jpg,jpeg,png|max:2048',
-
-            'type_service' => 'required|string',
-            'probleme' => 'required|string',
-
-            'documents.*' => 'required|file|mimes:pdf,jpg,jpeg,png|max:4096',
-            'adverse_info' => 'required|string'
-        ]);
-
-        // Stocker la pièce d'identité
-        $pieceIdentitePath = $request->file('piece_identite')->store('pieces_identite', 'public');
-
-        // Stocker les documents multiples
-        $documentPaths = [];
-        if ($request->hasFile('documents')) {
-            foreach ($request->file('documents') as $document) {
-                $documentPaths[] = $document->store('documents', 'public');
-            }
+        // Vérifie si le client est validé ou non
+        $user = auth()->user();
+        if ($user->statut_validation === 'en_attente') {
+            return redirect()->route('client.editProfile')->with('message', 'Complétez votre profil pour continuer.');
         }
 
-        // Sauvegarde dans la base
-        $client = Client::create([
-            'nom' => $validated['nom'],
-            'email' => $validated['email'],
-            'telephone' => $validated['telephone'],
-            'adresse' => $validated['adresse'],
-            'piece_identite' => $pieceIdentitePath,
-            'type_service' => $validated['type_service'],
-            'probleme' => $validated['probleme'],
-            'documents' => json_encode($documentPaths),
-            'adverse_info' => $validated['adverse_info'],
-        ]);
-
-        return redirect()->back()->with('success', 'Votre demande a été envoyée avec succès !');
+        return view('client.dashboard');
+    }
+    
+    /**
+     * Formulaire de complétion du profil
+     */
+    public function editProfile()
+    {
+        return view('client.complete-profile');
     }
 
     /**
-     * Display the specified resource.
+     * Mise à jour du profil client après la première connexion
      */
-    public function show(Client $client)
-    {
-        //
-    }
+    // public function updateProfile(Request $request)
+    // {
+    //     $request->validate([
+    //         'domaine_juridique' => 'required|string',
+    //         'probleme' => 'required|string',
+    //         'fichier' => 'required|file|mimes:pdf,png|max:2048',
+    //         'information_adverse' => 'required|string',
+    //     ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Client $client)
-    {
-        //
-    }
+    //     $user = auth()->user();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Client $client)
-    {
-        //
-    }
+    //     // Stocker le fichier
+    //     $path = $request->file('fichier')->store('dossiers', 'public');
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Client $client)
-    {
-        //
-    }
+    //     // Mise à jour de l'utilisateur
+    //     $user->update([
+    //         'domaine_juridique' => $request->domaine_juridique,
+    //         'probleme' => $request->probleme,
+    //         'fichier' => $path,
+    //         'information_adverse' => $request->information_adverse,
+    //         'statut_validation' => 'en_attente', // Statut à valider par l'admin
+    //     ]);
+
+    //     // Notifier l'admin (optionnel)
+    //     // Notification::route('mail', 'admin@example.com')->notify(new ClientProfileSubmitted($user));
+
+    //     return redirect()->route('dashboard')->with('message', 'Votre profil a été soumis pour validation.');
+    // }
 }

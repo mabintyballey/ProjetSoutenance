@@ -1,17 +1,19 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use App\Models\Dossier;
+use Illuminate\Support\Facades\Auth;
 
-class DossierController extends Controller
+class AvocatDossierController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $dossiers = Dossier::where('avocat_id', Auth::id())->get();
+        return view('avocat.dossiers.index', compact('dossiers'));
     }
 
     /**
@@ -33,11 +35,12 @@ class DossierController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
-    }
-
+   
+     public function show(Dossier $dossier)
+     {
+         $this->authorize('view', $dossier); // facultatif si tu utilises les Policies
+         return view('avocat.dossiers.show', compact('dossier'));
+     }
     /**
      * Show the form for editing the specified resource.
      */
@@ -60,5 +63,12 @@ class DossierController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    
+    public function updateStatut(Request $request, Dossier $dossier)
+    {
+        $request->validate(['statut' => 'required|string']);
+        $dossier->update(['statut' => $request->statut]);
+        return back()->with('success', 'Statut mis à jour.');
     }
 }

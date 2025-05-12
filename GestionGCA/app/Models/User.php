@@ -17,10 +17,21 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected $fillable = [
+    
+     protected $fillable = [
         'name',
         'email',
         'password',
+        'role',
+        'prenom',
+        'specialite',
+        'telephone',
+        'adresse',
+        'domaine_juridique',
+        'probleme',
+        'fichier',
+        'information_adverse',
+        'statut_validation',
     ];
 
     /**
@@ -38,8 +49,31 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
+    use Notifiable;
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+   
+    // Relations avec les dossiers
+    public function dossiersCommeClient()
+    {
+        return $this->hasMany(Dossier::class, 'client_id');
+    }
+
+    public function dossiersCommeAvocat()
+    {
+        return $this->hasMany(Dossier::class, 'avocat_id');
+    }
+
+    // Relations avec les rendez-vous
+    public function rendezVousCommeClient()
+    {
+        return $this->hasMany(RendezVous::class, 'client_id');
+    }
+
+    public function rendezVousCommeAvocat()
+    {
+        return $this->hasMany(RendezVous::class, 'avocat_id');
+    }
 }

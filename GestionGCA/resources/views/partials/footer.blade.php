@@ -5,7 +5,7 @@
                     <div class="row">
                         <div class="col-md-6 col-lg-4">
                             <div class="footer-about">
-                                <h2>About Us</h2>
+                                <h2>Qui sommes-nous</h2>
                                 <p>
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu lectus a leo tristique dictum nec non quam. Suspendisse convallis, tortor eu placerat rhoncus, lorem quam iaculis felis, sed eleifend lacus neque id eros. Integer convallis volutpat neque
                                 </p>
@@ -15,7 +15,7 @@
                             <div class="row">
                         <div class="col-md-6 col-lg-4">
                             <div class="footer-link">
-                                <h2>Services Areas</h2>
+                                <h2>Zones de services</h2>
                                 <a href="">Civil Law</a>
                                 <a href="">Family Law</a>
                                 <a href="">Business Law</a>
@@ -25,7 +25,7 @@
                         </div>
                         <div class="col-md-6 col-lg-4">
                             <div class="footer-link">
-                                <h2>Useful Pages</h2>
+                                <h2>Pages utiles</h2>
                                 <a href="">About Us</a>
                                 <a href="">Practices</a>
                                 <a href="">Attorneys</a>
@@ -35,7 +35,7 @@
                         </div>
                         <div class="col-md-6 col-lg-4">
                             <div class="footer-contact">
-                                <h2>Get In Touch</h2>
+                                <h2>Contactez-nous</h2>
                                 <p><i class="fa fa-map-marker-alt"></i>123 Street, New York, USA</p>
                                 <p><i class="fa fa-phone-alt"></i>+012 345 67890</p>
                                 <p><i class="fa fa-envelope"></i>info@example.com</p>

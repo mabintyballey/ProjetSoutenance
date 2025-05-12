@@ -57,11 +57,22 @@
                                 <a href="#services" class="nav-item nav-link">Nos Services</a>
                                 <a href="#equipe" class="nav-item nav-link">L'équipe</a>
                                 <a href="#avisClient" class="nav-item nav-link">Témoignages</a>
-                                <a href="contact.html" class="nav-item nav-link">Contact</a>
+                                <a href="{{route('contact')}}" class="nav-item nav-link">Contact</a>
                             </div>
                             <div class="ml-auto">
                                  <!-- Call to Action (CTA) -->
-                                <a class="btn" href="{{ route('register') }}">Se Connecter</a>
+                                     <div class="nav-item dropdown">
+                                        <a href="#" class="btn btn-custom dropdown-toggle text-white" id="loginDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Se Connecter
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="loginDropdown">
+                                            <a class="dropdown-item" href="{{ route('admin.login.form') }}">Connexion Admin</a>
+                                            <a class="dropdown-item" href="{{ route('avocat.login.form') }}">Connexion Avocat</a>
+                                            <a class="dropdown-item" href="{{ route('register') }}">Connexion Client</a>
+                                        </div>
+                                 </div>
+                               <!-- @guest -->
+                                <!-- @endguest -->
                             </div>
                         </div>
                     </nav>

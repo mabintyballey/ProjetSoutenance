@@ -3,7 +3,7 @@
     <div class="sidebar-logo pt-3">
       <!-- Logo Header -->
       <div class="logo-header" style="background-color: #1a252f">
-        <a href="{{ route('administration.dashboard') }}" class="logo">
+        <a href="" class="logo">
         <img
             src="{{ asset('assets/img/logobg.png') }}"
             alt="navbar brand"
@@ -35,7 +35,7 @@
       <div class="sidebar-content">
         <ul class="nav nav-secondary">
           <li class="nav-item {{ Route::is('administration.dashboard') ? 'active' : '' }}">
-            <a href="{{ route('administration.dashboard') }}" style="background-color: #2c3e50;">
+            <a href="" style="background-color: #2c3e50;">
               <i class="fas fa-home"></i>
               <p>Tableau de bord</p>
             </a>
@@ -78,25 +78,6 @@
               <p>Avocat juge</p>
             </a>
           </li>
-          <li class="nav-item">
-            <a href="#">
-              <i class="icon-folder-alt"></i>
-              <p>Administration</p>
-            </a>
-          </li>
-           <!--
-          <li class="nav-item">
-          <a href="">
-              <i class="icon-grid"></i>
-              <p>Avocat juge</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="#">
-              <i class="icon-note"></i>
-              <p>Avocat juge</p>
-            </a>
-          </li> -->
           <div class="divider"></div>
           <li class="nav-item">
             <a href="">
@@ -105,13 +86,13 @@
             </a>
           </li>
           <li class="nav-item">
-            <form action="#" method="POST">
-                @csrf
-                <button type="submit">
-                  <i class="icon-logout"></i>
-                  <p class="btn btn-danger text-light">Se deconnecter</p>
-                </button>
-            </form>
+           <form action="{{ route('logout') }}" method="POST">
+               @csrf
+               <button type="submit" class="btn btn-danger">
+                   <i class="fas fa-sign-out-alt"></i> Se déconnecter
+               </button>
+           </form>
+
           </li>
         </ul>
       </div>

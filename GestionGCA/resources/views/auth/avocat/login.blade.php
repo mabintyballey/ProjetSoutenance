@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Administration login</title>
-
+    <title>Administration login avocat</title>
     <meta
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
       name="viewport"
@@ -38,6 +37,54 @@
     <link rel="stylesheet" href="{{ asset('administration/assets/css/bootstrap.min.css') }}" />
 
     <style>
+        body {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    font-family: 'Public Sans', sans-serif;
+    color: #343a40;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.wrapper {
+    width: 100%;
+    max-width: 1200px;
+    background-color: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+section.p-5 {
+    padding: 3rem !important;
+}
+
+a.btn-info {
+    border-radius: 30px;
+    padding: 0.5rem 1.5rem;
+    font-weight: 500;
+}
+
+button.btn-primary {
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+button.btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+img.img-fluid {
+    border-radius: 8px;
+}
+
         .divider:after,
         .divider:before {
         content: "";
@@ -50,7 +97,7 @@
 <body>
     <div class="wrapper">
         <section class="p-5">
-            <a href="{{ route('acceuil') }}" class="btn btn-info text-white">
+        <a href="{{ route('accueil') }}" class="btn btn-info text-white">
                 <i class="icon-arrow-left-circle"></i>
                 Acceuil
             </a>
@@ -58,11 +105,11 @@
             <div class="container py85 h-100">
               <div class="row d-flex align-items-center justify-content-center h-100">
                 <div class="col-md-8 col-lg-7 col-xl-6">
-                  <img src="{{ asset('assets/img/hero-img.png') }}"
+                  <img src="{{ asset('assets/img/connexionAvocat.png') }}"
                     class="img-fluid" alt="Phone image">
                 </div>
                 <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-                  <form method="POST" action="{{ route('login') }}">
+                  <form method="POST" action="{{ route('avocat.login') }}">
                     @csrf
 
                     <!-- Email input -->
@@ -95,14 +142,6 @@
                     <!-- Submit button -->
                     <button type="submit" class="btn btn-primary btn-lg btn-block"><i class=" icon-login"></i> Se connecter</button>
                   </form>
-
-                  <div class="divider d-flex align-items-center my-4">
-                    <p class="text-center fw-bold mx-3 mb-0 text-muted">OU</p>
-                  </div>
-
-                  <a href="{{ route('admin.register') }}" class="btn btn-primary btn-lg mx-auto" style="background-color: #3b5998; width: 100%">
-                    <i class="icon-user-follow"></i> Créer un compte
-                  </a>
                 </div>
               </div>
             </div>

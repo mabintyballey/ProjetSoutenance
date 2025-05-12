@@ -162,11 +162,50 @@ let currentStep = 0;
     }
 
     showStep(currentStep);
+    document.addEventListener("DOMContentLoaded", function () {
+    const target = document.querySelector("#infoClient");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            target.classList.add("animate-fade-slide-in");
+          } else {
+            target.classList.remove("animate-fade-slide-in");
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    observer.observe(target);
+  });
+    //A propos
+document.addEventListener("DOMContentLoaded", function () {
+  const section = document.querySelector("#bienvenue");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          section.classList.add("fade-slide-up");
+        } else {
+          // Supprime la classe si la section sort de la vue
+          section.classList.remove("fade-slide-up");
+        }
+      });
+    },
+    {
+      threshold: 0.3,
+    }
+  );
+
+  observer.observe(section);
+});
     //avis client
     $(document).ready(function(){
     $(".testimonials-carousel").owlCarousel({
         items: 3,  
-        dots: true,
         loop: true,  
         margin: 15,  
         autoplay: true, 
@@ -187,6 +226,131 @@ let currentStep = 0;
         }
     });
 });
- 
+document.addEventListener("DOMContentLoaded", function () {
+  const section = document.querySelector("#avisClient");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          section.classList.add("fade-slide-up");
+        } else {
+          // Supprime la classe si la section sort de la vue
+          section.classList.remove("fade-slide-up");
+        }
+      });
+    },
+    {
+      threshold: 0.3,
+    }
+  );
+
+  observer.observe(section);
+});
+// l'apparition des elements de teams pour nos avocats
+document.addEventListener("DOMContentLoaded", function () {
+    const items = document.querySelectorAll(".team-item");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add("visible");
+            }, index * 500);
+          } else {
+            entry.target.classList.remove("visible");
+          }
+        });
+      },
+      {
+        threshold: 0.2,
+      }
+    );
+
+    items.forEach((item, index) => {
+      // Ajoute la classe "slide-left" à un item sur deux
+      if (index % 2 === 0) {
+        item.classList.add("slide-left");
+      }
+      observer.observe(item);
+    });
+  });
+// l'apparition des elements de teams pour nos domaines d'interventions
+  document.addEventListener("DOMContentLoaded", function () {
+    const services = document.querySelectorAll(".service-item");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add("visible");
+              // effet en cascade
+            }, index * 500); 
+          } else {
+            // réinitialise l'effet
+            entry.target.classList.remove("visible"); 
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+      }
+    );
+
+    services.forEach((item) => observer.observe(item));
+  });
+  //test pour le choix des avocats
+  const avocatsParService = {
+        conseil: [
+            { nom: "Aissatou Diallo", id: "aissatou" },
+            { nom: "Mamadou Camara", id: "mamadou" }
+        ],
+        avocat: [
+            { nom: "Alpha Barry", id: "alpha" },
+            { nom: "Fatoumata Sow", id: "fatoumata" }
+        ],
+        juriste: [
+            { nom: "Ibrahima Bah", id: "ibrahima" },
+            { nom: "Nene Kourouma", id: "nene" }
+        ],
+        collaborateur: [
+            { nom: "Mohamed Sylla", id: "mohamed" },
+            { nom: "Aminata Condé", id: "aminata" }
+        ]
+    };
+    const selectService = document.querySelector('select[name="type_service"]');
+    const selectAvocat = document.getElementById('avocat_choisi');
+
+    selectService.addEventListener('change', function () {
+        const type = this.value;
+        const avocats = avocatsParService[type] || [];
+
+        // Réinitialiser la liste
+        selectAvocat.innerHTML = '<option value="">-- Sélectionnez un avocat --</option>';
+
+        if (avocats.length > 0) {
+            selectAvocat.disabled = false;
+
+            avocats.forEach(avocat => {
+                const option = document.createElement('option');
+                option.value = avocat.id;
+                option.textContent = avocat.nom;
+                selectAvocat.appendChild(option);
+            });
+        } else {
+            selectAvocat.disabled = true;
+        }
+    });
+    <!-- Script pour le dropdown -->
+                                    
+    window.addEventListener('scroll', function () {
+        let dropdown = document.querySelector('.dropdown-menu.show');
+        if (dropdown) {
+            const toggle = document.getElementById('loginDropdown');
+            toggle.click(); 
+        }
+    });                            
 </script>
  

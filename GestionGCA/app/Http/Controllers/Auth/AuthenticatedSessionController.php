@@ -23,14 +23,51 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
-    {
-        $request->authenticate();
+    public function store(Request $request): RedirectResponse
+{
+    $credentials = $request->only('email', 'password');
 
+    if (Auth::attempt($credentials)) {
         $request->session()->regenerate();
+        $user = Auth::user();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        // Vérification de l'accès selon le rôle
+        if ($user->role === 'admin') {
+            return redirect()->route('admin.dashboard');
+        }
+
+        if ($user->role === 'avocat') {
+            if (!$user->is_active) {
+                Auth::logout();
+                return back()->withErrors([
+                    'email' => 'Votre compte avocat n\'est pas encore activé.',
+                ]);
+            }
+            return redirect()->route('avocat.dashboard');
+        }
+
+        if ($user->role === 'client') {
+            if ($user->statut_validation !== 'valide') {
+                Auth::logout();
+                return back()->withErrors([
+                    'email' => 'Votre compte client est en attente de validation par l\'administrateur.',
+                ]);
+            }
+            return redirect()->route('client.dashboard');
+        }
+
+        // Si rôle inconnu
+        Auth::logout();
+        return back()->withErrors([
+            'email' => 'Rôle utilisateur non reconnu.',
+        ]);
     }
+
+    return back()->withErrors([
+        'email' => 'Les identifiants sont incorrects.',
+    ]);
+}
+
 
     /**
      * Destroy an authenticated session.

@@ -111,8 +111,35 @@ a:focus {
 .back-to-top i {
     padding-top: 10px;
 }
+/* pour la se connecter */
+.btn-custom {
+    background-color: #aa9166;
+    border: none;
+}
+.btn-custom:hover {
+    background-color: #9d845c;
+}
+.dropdown-menu a.dropdown-item {
+    padding: 10px 20px;
+    font-weight: 500;
+    color: #333;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
 
+.dropdown-menu a.dropdown-item:hover {
+    background-color: #aa9166;
+    color: #fff;
+}
 
+.btn-custom {
+    background-color: #aa9166;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+.btn-custom:hover {
+    background-color: #9d845c;
+}
 /**********************************/
 /********** Top Bar CSS ***********/
 /**********************************/
@@ -653,7 +680,22 @@ p {
     padding-top: 0 !important;
     padding-bottom: 0 !important;
 }
-
+@keyframes fadeSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .fade-slide-up {
+    opacity: 0;
+    animation: fadeSlideUp 1s ease-out forwards;
+  }
+  
 /* Responsivité : adaption pour les petits écrans */
 @media screen and (max-width: 768px) {
     .col-md-6 {
@@ -873,7 +915,16 @@ p {
     color: #121518;
     background: #aa9166;
 }
-
+.service-item {
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+    transition: all 0.6s ease-out;
+  }
+  
+  .service-item.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 
 /*******************************/
 /********* Feature CSS *********/
@@ -1023,11 +1074,51 @@ p {
 .team .team-social a:hover {
     color: #ffffff;
 }
+.team-item {
+    opacity: 0;
+    transform: translateX(100px);
+    transition: all 0.8s ease;
+  }
 
+  .team-item.slide-left {
+    transform: translateX(-100px);
+  }
+
+  .team-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  #voir-plus {
+    transition: all 0.3s ease;
+    font-weight: bold;
+  }
+
+  #voir-plus:hover {
+    background-color: #222;
+    color: #fff;
+    transform: scale(1.05);
+  }
 
 /*******************************/
-/*********** FAQs CSS **********/
+/*********** FAQs CSS et info client **********/
 /*******************************/
+@keyframes fadeSlideInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-fade-slide-in {
+    animation: fadeSlideInUp 1s ease-out forwards;
+    /* pour éviter d'apparaître trop tôt */
+    opacity: 0; 
+  }
+  
 .faqs {
     position: relative;
     width: 100%;
@@ -1182,7 +1273,7 @@ p {
     position: relative;
     margin: 0 15px;
     padding: 30px;
-    background: #2e4d6c;
+    background: #2e4b66;
     overflow: hidden;
 }
 
@@ -1223,7 +1314,7 @@ p {
     text-align: center;
 }
 
-.testimonial .owl-dot {
+/* .testimonial .owl-dot {
     display: inline-block;
     margin: 0 5px;
     width: 12px;
@@ -1234,7 +1325,7 @@ p {
 
 .testimonial .owl-dot.active {
     background: #121518;
-}
+} */
 
 
 /*******************************/

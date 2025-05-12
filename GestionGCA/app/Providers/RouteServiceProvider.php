@@ -37,4 +37,14 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/web.php'));
         });
     }
+    public function redirectTo()
+   {
+        return match(auth()->user()->role) {
+            'admin' => '/administration/pages/dashboard',
+            'avocat' => '/avocat/dashboard',
+            'client' => '/client/dashboard',
+            default => '/dashboard'
+        };
+   }
+
 }

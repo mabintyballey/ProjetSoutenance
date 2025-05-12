@@ -31,7 +31,7 @@
                              <div class="carousel-caption">
                                  <h1 class="animated fadeInLeft">Nous sommes prêts à nous opposer pour vous</h1>
                                  <p class="animated fadeInRight">Lorem ipsum dolor sit amet elit. Mauris odio mauris...</p>
-                                 <a class="btn animated fadeInUp" href="#">OBTENEZ UNE CONSULTATION GRATUITE</a>
+                                 <a class="btn animated fadeInUp" href="infoClient">OBTENEZ UNE CONSULTATION GRATUITE</a>
                              </div>
                          </div> 
      
@@ -40,7 +40,7 @@
                              <div class="carousel-caption">
                                  <h1 class="animated fadeInLeft">Nous nous battons pour votre privilège</h1>
                                  <p class="animated fadeInRight">Lorem ipsum dolor sit amet elit. Mauris odio mauris...</p>
-                                 <a class="btn animated fadeInUp" href="#">OBTENEZ UNE CONSULTATION GRATUITE</a>
+                                 <a class="btn animated fadeInUp" href="infoClient">OBTENEZ UNE CONSULTATION GRATUITE</a>
                              </div>
                          </div>
      
@@ -49,7 +49,7 @@
                              <div class="carousel-caption">
                                  <h1 class="animated fadeInLeft">Nous nous battons pour votre justice</h1>
                                  <p class="animated fadeInRight">Lorem ipsum dolor sit amet elit. Mauris odio mauris...</p>
-                                 <a class="btn animated fadeInUp" href="#">OBTENEZ UNE CONSULTATION GRATUITE</a>
+                                 <a class="btn animated fadeInUp" href="#infoClient">OBTENEZ UNE CONSULTATION GRATUITE</a>
                              </div>
                          </div>
                      </div>
@@ -298,11 +298,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row justify-content-center mt-2 mb-4">
+                         <div class="col-auto">
+                            <button id="voir-plus" class="btn btn-outline-dark rounded-pill px-4 py-2">
+                             <i class="fas fa-plus mr-2"></i> Voir plus
+                            </button>
+                         </div>
+                     </div>
                 </div>
             </div>
         </section>
 <!-- informations du client au cabinet -->
-<section class="p-4 flex items-end min-h-screen" style="background-image: url('{{ asset('assets/img/single.jpg') }}');">
+<section id="infoClient" class="p-4 flex items-end min-h-screen" style="background-image: url('{{ asset('assets/img/single.jpg') }}');">
     <div class="container col-md-8 p-3" style="background-color: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
           <!-- <h2 class="mb-4">Prise de rendez-vous</h2> -->
            <div class="text-center p-8">
@@ -356,6 +363,13 @@
                             <option value="collaborateur">Collaborateur</option>
                         </select>
                     </div>
+                    <div class="mb-3">
+                        <label>Choisir un avocat</label>
+                        <select name="avocat_choisi" id="avocat_choisi" class="form-control" disabled>
+                            <option value="">-- Sélectionnez un avocat --</option>
+                        </select>
+                    </div>
+
                     <div class="mb-3">
                         <label>Description du problème</label>
                         <textarea name="probleme" class="form-control" rows="4" required></textarea>
@@ -470,7 +484,21 @@
         </div>
     </div>
     <!-- Testimonial End -->
-</section>  
+</section> 
+  <!-- Newsletter Start -->
+  <div class="newsletter">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>JUGE CABINET D'AVOCAT</h2>
+                        <P>Rejoignez nous pour plus d'info</P>
+                    </div>
+                    <div class="form">
+                        <input class="form-control" placeholder="Email here">
+                        <button class="btn">Submit</button>
+                    </div>
+                </div>
+            </div>
+     <!-- Newsletter End --> 
     </main>
         @include('partials.footer')
 
@@ -482,8 +510,6 @@
         
         @include('partials.javascript_section')
    </div>
- 
-   </footer> 
 </body>
 
 </html>
