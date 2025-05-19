@@ -303,7 +303,11 @@
         }, 5000); 
    
 
-
+// utiliser pour le menu modifier, supprimer un avocat
+    function toggleMenu(id) {
+        const menu = document.getElementById('menu-' + id);
+        menu.classList.toggle('hidden');
+    }
     
 </script>
 

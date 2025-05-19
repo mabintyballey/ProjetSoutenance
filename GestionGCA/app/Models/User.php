@@ -55,16 +55,17 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
    
-    // Relations avec les dossiers
-    public function dossiersCommeClient()
-    {
-        return $this->hasMany(Dossier::class, 'client_id');
-    }
+    // Pour un avocat
+public function dossiersEnCharge()
+{
+    return $this->hasMany(Dossier::class, 'avocat_id');
+}
 
-    public function dossiersCommeAvocat()
-    {
-        return $this->hasMany(Dossier::class, 'avocat_id');
-    }
+// Pour un client
+public function dossiersSoumis()
+{
+    return $this->hasMany(Dossier::class, 'client_id');
+}
 
     // Relations avec les rendez-vous
     public function rendezVousCommeClient()

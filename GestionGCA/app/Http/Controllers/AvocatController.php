@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Dossier;
 use Illuminate\Http\Request;
 
 class AvocatController extends Controller
@@ -37,7 +39,18 @@ class AvocatController extends Controller
     {
         //
     }
+     
+      public function dashboard()
+    {
+        $clientsCount = User::where('role', 'client')->count();
+        $avocatsCount = User::where('role', 'avocat')->count();
+        $dossiersCount = Dossier::count();
+        $dossiersParStatut = Dossier::selectRaw('statut_validation, count(*) as total')
+                                    ->groupBy('statut_validation')
+                                    ->pluck('total', 'statut_validation');
 
+        return view('avocat.pages.dashboard', compact('clientsCount', 'avocatsCount', 'dossiersCount', 'dossiersParStatut',));
+    }
     /**
      * Show the form for editing the specified resource.
      */

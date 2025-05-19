@@ -88,51 +88,61 @@
 
           <!-- Profile -->
           <li class="nav-item topbar-user dropdown hidden-caret">
-            <a
-              class="dropdown-toggle profile-pic"
-              data-bs-toggle="dropdown"
-              href=""
-              aria-expanded="false"
-            >
-              <div class="avatar-sm">
-                <img
-                  src="{{ asset('assets/img/logo_cabinet.png') }}"
-                  alt="..."
-                  class="avatar-img rounded-circle"
-                />
-              </div>
-              <span class="profile-username">
-                <span class="fw-bold" style="color: #aa9166">J U G E - C A B I N E T - D'A V O C A T</span>
-              </span>
-            </a>
-            <ul class="dropdown-menu dropdown-user animated fadeIn">
-              <div class="dropdown-user-scroll scrollbar-outer">
+        <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#" aria-expanded="false">
+            <div class="avatar-sm">
+              @php
+                  $photoPath = null;
+              
+                  if (Auth::user()->photo) {
+                      // Si le fichier existe dans storage/public/photos
+                      if (\Illuminate\Support\Facades\Storage::disk('public')->exists(Auth::user()->photo)) {
+                          $photoPath = asset('storage/' . Auth::user()->photo);
+                      }
+                      // Sinon on suppose que c’est dans uploads/photos (public/uploads/photos)
+                      elseif (file_exists(public_path('uploads/photos/' . Auth::user()->photo))) {
+                          $photoPath = asset('uploads/photos/' . Auth::user()->photo);
+                      }
+                  }
+              @endphp
+
+           <img src="{{ $photoPath ?? asset('uploads/photos/default.png') }}" alt="Profil" class="avatar-img rounded-circle" />
+
+            </div>
+            <span class="profile-username d-block text-center" style="color: #aa9166; font-size: 1.25rem; font-weight: 600; letter-spacing: 0.5px;">
+             {{ Auth::user()->name }} {{ Auth::user()->prenom }}
+            </span>
+
+        </a>
+
+        <ul class="dropdown-menu dropdown-user animated fadeIn">
+            <div class="dropdown-user-scroll scrollbar-outer">
                 <li>
-                  <div class="user-box">
-                    <div class="avatar-lg">
-                      <img
-                        src="{{ asset('assets/img/logo_cabinet.png') }}"
-                        alt="image profile"
-                        class="avatar-img rounded"
-                      />
+                    <div class="user-box">
+                        <div class="avatar-lg">
+                            <img
+                                src="{{ asset(Auth::user()->photo ? 'uploads/photos/' . Auth::user()->photo : 'default.png') }}"
+                                alt="image profile"
+                                class="avatar-img rounded"
+                            />
+                        </div>
+                        <div class="u-text">
+                            <h4>{{ Auth::user()->name }}</h4>
+                            <p class="text-muted">{{ Auth::user()->email }}</p>
+                        </div>
                     </div>
-                    <div class="u-text">
-                      <h4>Juge Cabinet D'avocat</h4>
-                      <p class="text-muted">judecabintavocat@mail.com</p>
-                    </div>
-                  </div>
                 </li>
                 <li>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">Mon Profile</a>
-                  <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="#">
-                    <span class="btn btn-danger p-2 rounded">Se deconnecter</span>
-                  </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Mon Profil</a>
+                    <div class="dropdown-divider"></div>
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button class="dropdown-item btn btn-danger p-2 rounded" type="submit">Se déconnecter</button>
+                    </form>
                 </li>
-              </div>
-            </ul>
-          </li>
+            </div>
+        </ul>
+    </li>
         </ul>
       </div>
     </nav>

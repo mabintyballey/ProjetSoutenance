@@ -27,8 +27,8 @@
     <div class="sidebar-wrapper scrollbar scrollbar-inner">
       <div class="sidebar-content">
         <ul class="nav nav-secondary">
-          <li class="nav-item {{ Route::is('admin.dashboard') ? 'active' : '' }}">
-            <a href="{{route('admin.dashboard')}}" class="nav-link text-light d-flex align-items-center py-2" style="background-color: #2c3e50;">
+          <li class="nav-item {{ Route::is('avocat.dashboard') ? 'active' : '' }}">
+            <a href="{{route('avocat.dashboard')}}" class="nav-link text-light d-flex align-items-center py-2" style="background-color: #2c3e50;">
               <i class="fas fa-home"></i>
               <p>Tableau de bord</p>
             </a>
@@ -40,13 +40,6 @@
             </span>
             <h4 class="text-section">Menu</h4>
           </li>
-
-           <li class="nav-item {{ Route::is('admin.avocats.index') ? 'active' : '' }}">
-          <a href="{{ route('admin.avocats.index') }}" class="nav-link text-light d-flex align-items-center py-2">
-            <i class="icon-graduation me-2"></i> Gestion Des Avocats
-          </a>
-        </li>
-
           <li class="nav-item">
           <a href="#" class="nav-link text-light d-flex align-items-center py-2">
             <i class="icon-user me-2"></i> Gestion Des Clients
@@ -65,10 +58,11 @@
         </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link text-light d-flex align-items-center py-2">
-              <i class="fas fa-archive me-2"></i> Archives & Historique
-            </a>
-         </li>
+          <a href="#" class="nav-link text-light d-flex align-items-center py-2">
+            <i class="icon-grid me-2"></i> Avocat juge
+          </a>
+        </li>
+
           <li><hr class="text-secondary my-2"></li>
            <li class="nav-item mb-1">
           <a href="#" class="nav-link text-light d-flex align-items-center">

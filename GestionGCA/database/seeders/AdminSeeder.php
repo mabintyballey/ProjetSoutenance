@@ -13,13 +13,14 @@ class AdminSeeder extends Seeder
         User::updateOrCreate(
             ['email' => 'admin@cabinet.com'],
             [
-                'name' => 'Admin',
-                'prenom' => 'Principal',
+                'name' => 'Mabinty Balley',
+                'prenom' => 'Bangoura',
                 'email' => 'admin@cabinet.com',
-                'password' => Hash::make('password123'), // Change ça plus tard
+                'password' => Hash::make('password123'), 
                 'role' => 'admin',
                 'adresse' => 'Bureau Central',
                 'is_active' => true,
+                'photo' => 'admin.jpg',
                 'statut_validation' => 'valide',
             ]
         );

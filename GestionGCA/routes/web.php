@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminAvocatController;
 use App\Http\Controllers\AdminClientController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\AdminLoginController;
@@ -116,6 +117,20 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('/utilisateurs', UserManagementController::class);
     });
 });
+// route gestion des avocats par admin
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+    Route::get('avocats', [AdminAvocatController::class, 'index'])->name('admin.avocats.index');
+    Route::get('avocats/create', [AdminAvocatController::class, 'create'])->name('admin.avocats.create');
+    Route::post('avocats', [AdminAvocatController::class, 'store'])->name('admin.avocats.store');
+    Route::get('avocats/{id}', [AdminAvocatController::class, 'show'])->name('admin.avocats.show');
+    Route::get('avocats/{id}/edit', [AdminAvocatController::class, 'edit'])->name('admin.avocats.edit');
+    Route::put('avocats/{id}', [AdminAvocatController::class, 'update'])->name('admin.avocats.update');
+    // Supprimer un avocat (protégé par condition des dossiers)
+    Route::delete('avocats/{id}', [AdminAvocatController::class, 'destroy'])->name('admin.avocats.destroy');
+    Route::post('/admin/avocats/{user}/toggle', [AdminAvocatController::class, 'toggleStatus'])->name('admin.avocats.toggle');
+
+});
+
 
 /**
  * DOSSIERS (gérés par les avocats)
