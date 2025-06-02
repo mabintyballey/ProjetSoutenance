@@ -32,19 +32,19 @@ class AuthenticatedSessionController extends Controller
         $user = Auth::user();
 
         // Vérification de l'accès selon le rôle
-        if ($user->role === 'admin') {
-            return redirect()->route('admin.dashboard');
-        }
+        // if ($user->role === 'admin') {
+        //     return redirect()->route('admin.dashboard');
+        // }
 
-        if ($user->role === 'avocat') {
-            if (!$user->is_active) {
-                Auth::logout();
-                return back()->withErrors([
-                    'email' => 'Votre compte avocat n\'est pas encore activé.',
-                ]);
-            }
-            return redirect()->route('avocat.dashboard');
-        }
+        // if ($user->role === 'avocat') {
+        //     if (!$user->is_active) {
+        //         Auth::logout();
+        //         return back()->withErrors([
+        //             'email' => 'Votre compte avocat n\'est pas encore activé.',
+        //         ]);
+        //     }
+        //     return redirect()->route('avocat.dashboard');
+        // }
 
         if ($user->role === 'client') {
             if ($user->statut_validation !== 'valide') {

@@ -47,9 +47,9 @@ class AdminController extends Controller
         $clientsCount = User::where('role', 'client')->count();
         $avocatsCount = User::where('role', 'avocat')->count();
         $dossiersCount = Dossier::count();
-        $dossiersParStatut = Dossier::selectRaw('statut_validation, count(*) as total')
-                                    ->groupBy('statut_validation')
-                                    ->pluck('total', 'statut_validation');
+        $dossiersParStatut = Dossier::selectRaw('statut, count(*) as total')
+                                    ->groupBy('statut')
+                                    ->pluck('total', 'statut');
 
         return view('administration.pages.dashboard', compact('clientsCount', 'avocatsCount', 'dossiersCount', 'dossiersParStatut',));
     }

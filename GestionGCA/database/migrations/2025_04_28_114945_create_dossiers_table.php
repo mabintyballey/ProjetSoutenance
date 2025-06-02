@@ -17,8 +17,9 @@ return new class extends Migration
             $table->foreignId('client_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('avocat_id')->nullable()->constrained('users')->onDelete('set null');            
             $table->enum('type_affaire', ['Droit pénal', 'commercial','administrative', 'civil']);
-            $table->enum('statut_validation', ['en_attente', 'validé', 'rejeté'])->default('en_attente');
+            $table->enum('statut', ['en_attente', 'validé', 'rejeté'])->default('en_attente');
             $table->text('description');
+            $table->text('information_adverse');
             $table->timestamps();
         });
     }

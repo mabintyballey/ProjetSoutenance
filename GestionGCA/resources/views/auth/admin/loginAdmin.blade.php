@@ -1,154 +1,128 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Administration login admin</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Connexion - Cabinet Juridique</title>
 
-    <meta
-      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
-      name="viewport"
-    />
-    <link
-      rel="icon"
-      href="{{ asset('administration/assets/img/ubo_logo.jpg') }}"
-      type="image/x-icon"
-    />
-
-    <!-- Fonts and icons -->
-    <script src="{{ asset('administration/assets/js/plugin/webfont/webfont.min.js') }}"></script>
-    <script>
-      WebFont.load({
-        google: { families: ["Public Sans:300,400,500,600,700"] },
-        custom: {
-          families: [
-            "Font Awesome 5 Solid",
-            "Font Awesome 5 Regular",
-            "Font Awesome 5 Brands",
-            "simple-line-icons",
-          ],
-          urls: ["{{ asset('administration/assets/css/fonts.min.css') }}"],
-        },
-        active: function () {
-          sessionStorage.fonts = true;
-        },
-      });
-    </script>
-
-    <link rel="stylesheet" href="{{ asset('administration/assets/css/bootstrap.min.css') }}" />
-
+    <link rel="stylesheet" href="{{ asset('administration/assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('administration/assets/css/fonts.min.css') }}">
+    <link rel="icon" href="{{ asset('administration/assets/img/ubo_logo.jpg') }}" type="image/x-icon" />
+    
     <style>
         body {
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-    font-family: 'Public Sans', sans-serif;
-    color: #343a40;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    margin: 0;
-    position: relative;
-    overflow-x: hidden;
-}
+             margin: 0;
+             padding: 0;
+             font-family: 'Public Sans', sans-serif;
+             background: linear-gradient(120deg, #0f172a, #1e293b);
+             color: #fff;
+             height: 100vh;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+        }
 
-.wrapper {
-    width: 100%;
-    max-width: 1200px;
-    background-color: white;
-    border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
+        .login-wrapper {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            max-width: 1000px;
+            width: 100%;
+        }
 
-section.p-5 {
-    padding: 3rem !important;
-}
+        .login-image {
+            flex: 1;
+            background: url('{{ asset('assets/img/portfolio-1.jpg') }}') no-repeat center center;
+            background-size: cover;
+        }
 
-a.btn-info {
-    border-radius: 30px;
-    padding: 0.5rem 1.5rem;
-    font-weight: 500;
-}
+        .login-form {
+            flex: 1;
+            padding: 3rem;
+        }
 
-button.btn-primary {
-    border-radius: 30px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
+        .login-form h2 {
+            color: #001F3D;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
 
-button.btn-primary:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-}
+        .form-control {
+            border-radius: 0.5rem;
+        }
 
-img.img-fluid {
-    border-radius: 8px;
-}
+        .btn-primary {
+            background-color: #001F3D;
+            border: none;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            border-radius: 30px;
+        }
 
-        .divider:after,
-        .divider:before {
-        content: "";
-        flex: 1;
-        height: 1px;
-        background: #eee;
+        .btn-primary:hover {
+            background-color: #003366;
+        }
+
+        .form-check-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        .small-link {
+            font-size: 0.9rem;
+        }
+
+        .text-danger {
+            font-size: 0.85rem;
         }
     </style>
 </head>
 <body>
-    <div class="wrapper">
-        <section class="p-5">
-        <a href="{{ route('accueil') }}" class="btn btn-info text-white">
-                <i class="icon-arrow-left-circle"></i>
-                Acceuil
-            </a>
 
-            <div class="container py85 h-100">
-              <div class="row d-flex align-items-center justify-content-center h-100">
-                <div class="col-md-8 col-lg-7 col-xl-6">
-                  <img src="{{ asset('assets/img/portfolio-1.jpg') }}"
-                    class="img-fluid" alt="Phone image">
-                </div>
-                <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-                  <form method="POST" action="{{ route('admin.login') }}">
-                    @csrf
+<div class="login-wrapper">
+    <div class="login-image d-none d-md-block"></div>
+    <div class="login-form">
+        <a href="{{ route('accueil') }}" class="btn btn-sm btn-outline-secondary mb-4">
+            <i class="icon-arrow-left-circle"></i> Retour à l'accueil
+        </a>
 
-                    <!-- Email input -->
-                    <div data-mdb-input-init class="form-outline mb-4">
-                      <input type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" id="form1Example13" class="form-control form-control-lg" />
-                      <label class="form-label" for="form1Example13">Adresse email</label>
-                      @error('email')
-                         <span class="text-danger">Adresse email incorrect</span>
-                      @enderror
-                    </div>
+        <h2><i class="fas fa-user-shield me-2 text-primary"></i> Connexion Admin</h2>
 
-                    <!-- Password input -->
-                    <div data-mdb-input-init class="form-outline mb-4">
-                      <input type="password" name="password" required autocomplete="current-password" id="form1Example23" class="form-control form-control-lg" />
-                      <label class="form-label" for="form1Example23">Mot de passe</label>
-                    </div>
+        <form method="POST" action="{{ route('admin.login') }}">
+            @csrf
 
-                    <div class="d-flex justify-content-around align-items-center mb-4">
-                      <!-- Checkbox -->
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" value="" id="form1Example3" checked />
-                        <label class="form-check-label" for="form1Example3"> Se souvenir de moi </label>
-                      </div>
-
-                      @if (Route::has('password.request'))
-                        <a href="{{ route('password.request') }}">Mot de passe oublié ?</a>
-                      @endif
-                    </div>
-
-                    <!-- Submit button -->
-                    <button type="submit" class="btn btn-primary btn-lg btn-block"><i class=" icon-login"></i> Se connecter</button>
-                  </form>
-                </div>
-              </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Adresse email</label>
+                <input type="email" class="form-control" id="email" name="email" required autofocus value="{{ old('email') }}" />
+                @error('email')
+                    <span class="text-danger">Adresse email incorrecte</span>
+                @enderror
             </div>
-        </section>
-    </div>
 
-    <script src="{{ asset('administration/assets/js/core/bootstrap.min.js') }}"></script>
+            <div class="mb-3">
+                <label for="password" class="form-label">Mot de passe</label>
+                <input type="password" class="form-control" id="password" name="password" required />
+            </div>
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="remember" name="remember" checked />
+                    <label class="form-check-label" for="remember"> Se souvenir de moi </label>
+                </div>
+                @if (Route::has('password.request'))
+                    <a href="{{ route('password.request') }}" class="small-link">Mot de passe oublié ?</a>
+                @endif
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">
+                <i class="icon-login me-1"></i> Se connecter
+            </button>
+        </form>
+    </div>
+</div>
+
+<script src="{{ asset('administration/assets/js/core/bootstrap.min.js') }}"></script>
 </body>
 </html>

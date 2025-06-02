@@ -4,7 +4,7 @@
       <!-- Logo Header -->
       <div class="logo-header ml-0" style="background-color: #1a252f">
        <a href="#" class="logo d-flex align-items-center">
-         <img src="{{ asset('assets/img/logobg.png') }}" alt="navbar brand" class="navbar-brand" height="60" />
+         <img src="{{ asset('assets/img/logobg.png') }}" alt="navbar brand" class="navbar-brand" height="70" width="70"/>
                 <span style="color: #aa9166">JUGE-CABINET</span>
         </a>
 
@@ -47,13 +47,13 @@
           </a>
         </li>
 
-          <li class="nav-item">
-          <a href="#" class="nav-link text-light d-flex align-items-center py-2">
+          <li class="nav-item {{ Route::is('admin.clients.index') ? 'active' : '' }}">
+          <a href="{{ route('admin.clients.index') }}" class="nav-link text-light d-flex align-items-center py-2">
             <i class="icon-user me-2"></i> Gestion Des Clients
           </a>
         </li>
-         <li class="nav-item {{ Route::is('proffesseur.list') ? 'bg-secondary rounded' : '' }}">
-          <a href="#" class="nav-link text-light d-flex align-items-center py-2">
+         <li class="nav-item {{ Route::is('admin.dossiers.index') ? 'active' : '' }}">
+          <a href="{{ route('admin.dossiers.index') }}" class="nav-link text-light d-flex align-items-center py-2">
             <i class="icon-briefcase me-2"></i> Gestion des dossiers
           </a>
         </li>

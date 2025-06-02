@@ -30,7 +30,7 @@
 <div class="container py-5">
 
     <!-- Titre principal -->
-    <div class="text-center mb-5">
+    <div class="text-center mb-5 mt-3">
         <h1 class="display-6 fw-bold" style="color: #001F3D;">
             <i class="fas fa-gavel fa-lg me-2 text-warning"></i> Gestion des Avocats
         </h1>
@@ -68,22 +68,27 @@
 
     <!-- Liste des avocats -->
 @forelse($avocats as $avocat)
-<div class="card mb-3 card-hover border-0 shadow-sm" style="min-height: 150px;">
+<div class="card mb-3 border-0 shadow-sm card-hover" style="min-height: 150px;">
     <div class="row g-0 align-items-center">
         <!-- Image -->
         <div class="col-md-3">
-            <img src="{{'storage/' . $avocat->photo }}" class="img-fluid h-100 rounded-start" alt="{{ $avocat->name }}"
-                style="object-fit: cover; min-height: 150px; max-height: 150px;">
+            <div class="overflow-hidden rounded-start h-100">
+                <img src="{{ asset('storage/' . $avocat->photo) }}"
+                     class="img-fluid w-100 h-100"
+                     style="object-fit: cover; min-height: 100px; max-height: 150px;"
+                     alt="{{ $avocat->name }}">
+            </div>
         </div>
 
         <!-- Informations -->
         <div class="col-md-9">
-            <div class="card-body py-2 px-3 d-flex justify-content-between align-items-center flex-wrap">
-                <div style="line-height: 1.2;">
-                    <h5 class="fw-bold mb-1 text-primary" style="color: #001F3D; font-size: 1rem;">
+            <div class="card-body py-3 px-3 d-flex justify-content-between align-items-center flex-wrap">
+                <!-- Infos -->
+                <div class="me-3" style="line-height: 1.2;">
+                    <h5 class="fw-bold mb-1 text-primary" style="font-size: 1rem; color: #001F3D;">
                         {{ $avocat->name }} {{ $avocat->prenom }}
                     </h5>
-                    <p class="mb-1 text-muted fw-bold" style="font-size: 0.85rem; ">
+                    <p class="mb-1 text-muted fw-bold" style="font-size: 0.85rem;">
                         <i class="fas fa-briefcase me-1"></i>{{ $avocat->specialite }}
                     </p>
                     <small class="text-muted fw-bold" style="font-size: 0.8rem;">
@@ -91,41 +96,44 @@
                     </small>
                 </div>
 
-                <div class="d-flex align-items-center gap-2 mt-2 mt-md-0">
+                <!-- Actions -->
+                <div class="d-flex align-items-center gap-2 mt-3 mt-md-0 flex-wrap">
                     <!-- Badge statut -->
-                    <!-- <span class="badge badge-custom {{ $avocat->is_active ? 'bg-actif' : 'bg-inactif' }}">
-                        {{ $avocat->is_active ? 'Actif' : 'Inactif' }}
-                    </span> -->
-                        @if($avocat->is_active)
+                    @if($avocat->is_active)
                         <span class="badge bg-success">Actif</span>
-                       @else
+                    @else
                         <span class="badge bg-danger">Inactif</span>
-                        @endif
-                    <!-- Bouton Activer/Désactiver -->
-                    <!-- <form method="POST" action="{{ route('admin.avocats.toggle', $avocat->id) }}">
-                        @csrf
-                        @method('PATCH')
-                        <button type="submit" class="btn btn-outline-primary btn-sm">
-                            {{ $avocat->is_active ? 'Désactiver' : 'Activer' }}
-                        </button>
-                    </form> -->
-                        <!-- Activer/Désactiver -->
+                    @endif
+
+                    <!-- Activer / Désactiver -->
                     <form action="{{ route('admin.avocats.toggle', $avocat) }}" method="POST">
                         @csrf
-                        <button type="submit" class="btn btn-sm {{ $avocat->is_active ? 'btn-warning' : 'btn-success' }}">
-                            {{  $avocat->is_active ? 'Désactiver' : 'Activer' }}
+                        <button type="submit"
+                                class="btn btn-sm {{ $avocat->is_active ? 'btn-warning' : 'btn-success' }}">
+                            {{ $avocat->is_active ? 'Désactiver' : 'Activer' }}
                         </button>
                     </form>
+
                     <!-- Menu dropdown -->
                     <div class="dropdown">
                         <button class="btn btn-outline-warning btn-sm" data-bs-toggle="dropdown">
                             <i class="fas fa-cogs"></i>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-                            <li><a class="dropdown-item" href="{{ route('admin.avocats.show', $avocat->id) }}"><i class="fas fa-eye me-1"></i> Voir</a></li>
-                            <li><a class="dropdown-item" href="{{ route('admin.avocats.edit', $avocat->id) }}"><i class="fas fa-edit me-1"></i> Modifier</a></li>
                             <li>
-                                <form action="{{ route('admin.avocats.destroy', $avocat->id) }}" method="POST" onsubmit="return confirm('Supprimer cet avocat ?');">
+                                <a class="dropdown-item" href="{{ route('admin.avocats.show', $avocat->id) }}">
+                                    <i class="fas fa-eye me-1"></i> Voir
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('admin.avocats.edit', $avocat->id) }}">
+                                    <i class="fas fa-edit me-1"></i> Modifier
+                                </a>
+                            </li>
+                            <li>
+                                <form action="{{ route('admin.avocats.destroy', $avocat->id) }}"
+                                      method="POST"
+                                      onsubmit="return confirm('Supprimer cet avocat ?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="dropdown-item text-danger">

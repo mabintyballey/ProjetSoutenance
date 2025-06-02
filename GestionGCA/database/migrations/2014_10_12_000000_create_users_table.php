@@ -18,7 +18,7 @@ return new class extends Migration
         $table->string('email')->unique();
         $table->string('specialite')->nullable(); // spécifique à avocat
         $table->string('telephone')->nullable();
-        $table->string('adresse')->nullable();;
+        $table->string('adresse')->nullable();
         $table->timestamp('email_verified_at')->nullable();
         $table->string('password');
         $table->enum('role', ['client', 'avocat', 'admin'])->default('client');

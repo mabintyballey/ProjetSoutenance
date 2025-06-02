@@ -1,8 +1,9 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Mail\AvocatInscription;
 use Illuminate\Support\Facades\Storage;
-
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -65,15 +66,16 @@ class AdminAvocatController extends Controller
             'telephone' => 'required|string|max:255',
             'adresse' => 'required|string|max:255',
             'password' => 'required|string|min:8',
-            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', 
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg', 
         ]);
     
         $photoPath = null;
         if ($request->hasFile('photo')) {
             $photoPath = $request->file('photo')->store('photos', 'public'); 
         }
-    
-        User::create([
+         // Sauvegarde le mot de passe clair AVANT de le hasher
+        $plainPassword = $request->password;
+       $user = User::create([
             'name' => $validated['name'],
             'prenom' => $validated['prenom'],
             'email' => $validated['email'],
@@ -85,7 +87,8 @@ class AdminAvocatController extends Controller
             'is_active' => false,
             'photo' => $photoPath, 
         ]);
-    
+     Mail::to($user->email)->send(new AvocatInscription($user->name, $user->email, $plainPassword));
+        
         return redirect()->route('admin.avocats.index')->with('success', 'Avocat créé avec succès.');
     }
 

@@ -133,7 +133,7 @@
                 </li>
                 <li>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Mon Profil</a>
+                    <a class="dropdown-item" href="{{route('profile.edit')}}">Mon Profil</a>
                     <div class="dropdown-divider"></div>
                     <form action="{{ route('logout') }}" method="POST">
                         @csrf

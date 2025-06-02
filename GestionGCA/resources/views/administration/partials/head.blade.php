@@ -16,6 +16,9 @@
       href="{{ asset('assets/img/logo_cabinet.png') }}"
       type="image/x-icon"
     />
+   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <!-- À ajouter dans <head> -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Fonts and icons -->
     <script src="{{ asset('administration/assets/js/plugin/webfont/webfont.min.js') }}"></script>

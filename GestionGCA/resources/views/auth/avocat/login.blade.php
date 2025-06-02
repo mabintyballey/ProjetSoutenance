@@ -1,153 +1,136 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Administration login avocat</title>
-    <meta
-      content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
-      name="viewport"
-    />
-    <link
-      rel="icon"
-      href="{{ asset('administration/assets/img/ubo_logo.jpg') }}"
-      type="image/x-icon"
-    />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Connexion Avocat</title>
 
-    <!-- Fonts and icons -->
-    <script src="{{ asset('administration/assets/js/plugin/webfont/webfont.min.js') }}"></script>
-    <script>
-      WebFont.load({
-        google: { families: ["Public Sans:300,400,500,600,700"] },
-        custom: {
-          families: [
-            "Font Awesome 5 Solid",
-            "Font Awesome 5 Regular",
-            "Font Awesome 5 Brands",
-            "simple-line-icons",
-          ],
-          urls: ["{{ asset('administration/assets/css/fonts.min.css') }}"],
-        },
-        active: function () {
-          sessionStorage.fonts = true;
-        },
-      });
-    </script>
+  <link rel="icon" href="{{ asset('administration/assets/img/ubo_logo.jpg') }}" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ asset('administration/assets/css/bootstrap.min.css') }}" />
+  
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Public Sans', sans-serif;
+      background: linear-gradient(120deg, #0f172a, #1e293b);
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-    <link rel="stylesheet" href="{{ asset('administration/assets/css/bootstrap.min.css') }}" />
+    .login-card {
+      background-color: #ffffff;
+      color: #0f172a;
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      max-width: 500px;
+      width: 100%;
+    }
 
-    <style>
-        body {
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-    font-family: 'Public Sans', sans-serif;
-    color: #343a40;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    margin: 0;
-    position: relative;
-    overflow-x: hidden;
-}
+    .login-card h3 {
+      margin-bottom: 30px;
+      font-weight: 600;
+      color: #1e293b;
+    }
 
-.wrapper {
-    width: 100%;
-    max-width: 1200px;
-    background-color: white;
-    border-radius: 16px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
+    .form-control {
+      border-radius: 8px;
+      height: 48px;
+      border: 1px solid #cbd5e1;
+    }
 
-section.p-5 {
-    padding: 3rem !important;
-}
+    .btn-primary {
+      background-color: #1e40af;
+      border: none;
+      border-radius: 8px;
+      height: 48px;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
 
-a.btn-info {
-    border-radius: 30px;
-    padding: 0.5rem 1.5rem;
-    font-weight: 500;
-}
+    .btn-primary:hover {
+      background-color: #1d4ed8;
+    }
 
-button.btn-primary {
-    border-radius: 30px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-}
+    .form-check-label {
+      font-size: 0.9rem;
+    }
 
-button.btn-primary:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-}
+    .forgot-password {
+      font-size: 0.9rem;
+      color: #1e40af;
+    }
 
-img.img-fluid {
-    border-radius: 8px;
-}
+    .forgot-password:hover {
+      text-decoration: underline;
+    }
 
-        .divider:after,
-        .divider:before {
-        content: "";
-        flex: 1;
-        height: 1px;
-        background: #eee;
-        }
-    </style>
+    .logo {
+      max-width: 100px;
+      margin-bottom: 20px;
+    }
+
+    .btn-back {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      background: none;
+      border: none;
+      color: white;
+      font-weight: 500;
+      font-size: 1rem;
+    }
+  </style>
 </head>
 <body>
-    <div class="wrapper">
-        <section class="p-5">
-        <a href="{{ route('accueil') }}" class="btn btn-info text-white">
-                <i class="icon-arrow-left-circle"></i>
-                Acceuil
-            </a>
 
-            <div class="container py85 h-100">
-              <div class="row d-flex align-items-center justify-content-center h-100">
-                <div class="col-md-8 col-lg-7 col-xl-6">
-                  <img src="{{ asset('assets/img/connexionAvocat.png') }}"
-                    class="img-fluid" alt="Phone image">
-                </div>
-                <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-                  <form method="POST" action="{{ route('avocat.login') }}">
-                    @csrf
+  <a href="{{ route('accueil') }}" class="btn-back">
+    ← Retour à l'accueil
+  </a>
 
-                    <!-- Email input -->
-                    <div data-mdb-input-init class="form-outline mb-4">
-                      <input type="email" name="email" value="{{ old('email') }}" required autofocus autocomplete="username" id="form1Example13" class="form-control form-control-lg" />
-                      <label class="form-label" for="form1Example13">Adresse email</label>
-                      @error('email')
-                         <span class="text-danger">Adresse email incorrect</span>
-                      @enderror
-                    </div>
-
-                    <!-- Password input -->
-                    <div data-mdb-input-init class="form-outline mb-4">
-                      <input type="password" name="password" required autocomplete="current-password" id="form1Example23" class="form-control form-control-lg" />
-                      <label class="form-label" for="form1Example23">Mot de passe</label>
-                    </div>
-
-                    <div class="d-flex justify-content-around align-items-center mb-4">
-                      <!-- Checkbox -->
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" value="" id="form1Example3" checked />
-                        <label class="form-check-label" for="form1Example3"> Se souvenir de moi </label>
-                      </div>
-
-                      @if (Route::has('password.request'))
-                        <a href="{{ route('password.request') }}">Mot de passe oublié ?</a>
-                      @endif
-                    </div>
-
-                    <!-- Submit button -->
-                    <button type="submit" class="btn btn-primary btn-lg btn-block"><i class=" icon-login"></i> Se connecter</button>
-                  </form>
-                </div>
-              </div>
-            </div>
-        </section>
+  <div class="login-card">
+    <div class="text-center">
+      <img src="{{ asset('administration/assets/img/ubo_logo.jpg') }}" class="logo" alt="Logo cabinet" />
+      <h3>Connexion Avocat</h3>
     </div>
 
-    <script src="{{ asset('administration/assets/js/core/bootstrap.min.js') }}"></script>
+    <form method="POST" action="{{ route('avocat.login') }}">
+      @csrf
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Adresse Email</label>
+        <input type="email" name="email" id="email" value="{{ old('email') }}" class="form-control" required autofocus />
+        @error('email')
+          <span class="text-danger">Adresse email incorrect</span>
+        @enderror
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Mot de passe</label>
+        <input type="password" name="password" id="password" class="form-control" required />
+      </div>
+
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" name="remember" id="remember" />
+          <label class="form-check-label" for="remember">Se souvenir de moi</label>
+        </div>
+
+        @if (Route::has('password.request'))
+          <a href="{{ route('password.request') }}" class="forgot-password">Mot de passe oublié ?</a>
+        @endif
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Se connecter</button>
+    </form>
+  </div>
+
+  <script src="{{ asset('administration/assets/js/core/bootstrap.min.js') }}"></script>
 </body>
 </html>

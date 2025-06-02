@@ -322,7 +322,7 @@
    <!-- Section contenant le texte avant le formulaire -->
         <div class="p-8 bg-white/30 rounded-xl shadow-2xl backdrop-blur-lg mb-8 w-full max-w-4xl">
                
-            <form id="clientForm" action="{{ route('client.store') }}" method="POST" enctype="multipart/form-data" class="text-dark fw-bold">
+            <form id="clientForm" action="" method="POST" enctype="multipart/form-data" class="text-dark fw-bold">
                       @csrf
         
                 <!-- ÉTAPE 1: Infos personnelles -->

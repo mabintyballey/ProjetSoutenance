@@ -1,72 +1,58 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Models\Dossier;
+use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
     /**
-     * Dashboard client
+     * Affiche le tableau de bord du client avec ses dossiers.
      */
-//     public function updateProfile(Request $request)
-//    {
-//     $user = auth()->user();
-//     $user->update($request->only(['prenom', 'telephone', 'adresse']));
-//     $user->statut_validation = 'en_attente';
-//     $user->save();
-
-//     return redirect()->route('client.dashboard')->with('message', 'Profil mis à jour. En attente de validation.');
-//   }
-
     public function dashboard()
     {
-        // Vérifie si le client est validé ou non
-        $user = auth()->user();
-        if ($user->statut_validation === 'en_attente') {
-            return redirect()->route('client.editProfile')->with('message', 'Complétez votre profil pour continuer.');
-        }
-
-        return view('client.dashboard');
+        $dossiers = Dossier::where('client_id', Auth::id())->latest()->get();
+        return view('client.dashboard', compact('dossiers'));
     }
-    
+
     /**
-     * Formulaire de complétion du profil
+     * Affiche le formulaire de complétion de profil.
      */
     public function editProfile()
     {
-        return view('client.complete-profile');
+        $client = Auth::user();
+        return view('client.pages.profile', compact('client'));
     }
 
     /**
-     * Mise à jour du profil client après la première connexion
+     * Met à jour le profil du client.
      */
     // public function updateProfile(Request $request)
     // {
     //     $request->validate([
-    //         'domaine_juridique' => 'required|string',
-    //         'probleme' => 'required|string',
-    //         'fichier' => 'required|file|mimes:pdf,png|max:2048',
-    //         'information_adverse' => 'required|string',
+    //         'prenom' => 'required|string|max:255',
+    //         'telephone' => 'required|string|max:20',
+    //         'adresse' => 'required|string|max:255',
     //     ]);
 
-    //     $user = auth()->user();
+    //     $user = Auth::guard('client')->user();
 
-    //     // Stocker le fichier
-    //     $path = $request->file('fichier')->store('dossiers', 'public');
+    //     // Mise à jour manuelle
+    //     $user->prenom = $request->prenom;
+    //     $user->telephone = $request->telephone;
+    //     $user->adresse = $request->adresse;
+    //     $user->save();
 
-    //     // Mise à jour de l'utilisateur
-    //     $user->update([
-    //         'domaine_juridique' => $request->domaine_juridique,
-    //         'probleme' => $request->probleme,
-    //         'fichier' => $path,
-    //         'information_adverse' => $request->information_adverse,
-    //         'statut_validation' => 'en_attente', // Statut à valider par l'admin
-    //     ]);
-
-    //     // Notifier l'admin (optionnel)
-    //     // Notification::route('mail', 'admin@example.com')->notify(new ClientProfileSubmitted($user));
-
-    //     return redirect()->route('dashboard')->with('message', 'Votre profil a été soumis pour validation.');
+    //     return redirect()->route('client.attente')->with('success', 'Profil soumis pour validation.');
     // }
+
+    /**
+     * Page affichée après soumission du profil, en attente de validation.
+     */
+    public function attenteValidation()
+    {
+        return view('client.attente');
+    }
 }

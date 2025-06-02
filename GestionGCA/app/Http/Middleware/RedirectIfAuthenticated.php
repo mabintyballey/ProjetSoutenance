@@ -15,16 +15,42 @@ class RedirectIfAuthenticated
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, string ...$guards): Response
+    public function handle(Request $request, Closure $next, ...$guards): Response
     {
-        $guards = empty($guards) ? [null] : $guards;
-
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                $user = Auth::guard($guard)->user();
+
+                if ($user->role === 'admin') {
+                    return redirect()->route('admin.dashboard');
+                } elseif ($user->role === 'avocat') {
+                    return redirect()->route('avocat.dashboard');
+                } elseif ($user->role === 'client') {
+                    if ($user->statut_validation === 'valide') {
+                        return redirect()->route('client.dashboard');
+                    } else {
+                        return redirect()->route('client.attente');
+                    }
+                }
+
+                return redirect('/'); 
             }
         }
 
         return $next($request);
     }
+
+    public function redirectTo()
+    {
+        $user = auth()->user();
+    
+        if ($user->role === 'client') {
+            if ($user->statut_validation === 'valide') {
+                return '/client/dashboard';
+            } else {
+                return '/client/attente-validation';
+            }
+        }
+    }
+
 }
