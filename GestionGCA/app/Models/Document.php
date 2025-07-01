@@ -11,10 +11,15 @@ class Document extends Model
     protected $fillable = [
         'dossier_id',
         'type',
-        'chemin_fichier',
+        'path_fichier',
     ];
     public function dossier()
     {
         return $this->belongsTo(Dossier::class);
     }
+    public function requete()
+   {
+       return $this->belongsTo(Requete::class, 'dossier_id');
+   }
+
 }

@@ -7,6 +7,23 @@ body {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
 }
+.timeline li::before {
+    content: '•';
+    color: #0d6efd;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+}
+
+.nouveau-message {
+        animation: highlight 1.5s ease-in-out;
+    }
+
+    @keyframes highlight {
+        0%   { background-color: #d4edda; } /* Vert clair */
+        50%  { background-color: #c3e6cb; }
+        100% { background-color: transparent; }
+    }
 #preloader-active {
     position: fixed;
     top: 0;

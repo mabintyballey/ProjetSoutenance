@@ -8,27 +8,40 @@ use Illuminate\Database\Eloquent\Model;
 class Dossier extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'client_id',
         'avocat_id',
-        'type_affaire',
+        'domaine_id',
         'statut',
         'description',
         'information_adverse',
     ];
 
+    // Relation vers Client (et non User !)
     public function client()
     {
-        return $this->belongsTo(User::class, 'client_id');
+        return $this->belongsTo(Client::class, 'client_id');
     }
 
+    // App\Models\Dossier
     public function avocat()
     {
-        return $this->belongsTo(User::class, 'avocat_id');
+        return $this->belongsTo(Avocat::class, 'avocat_id');
+    }
+
+    // Dossier.php
+    public function domaine()
+    {
+        return $this->belongsTo(Domaine::class);
     }
 
     public function documents()
     {
         return $this->hasMany(Document::class);
     }
+    public function rendezvous()
+{
+    return $this->hasMany(rendez_vous::class);
+}
 }

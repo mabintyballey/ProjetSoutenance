@@ -23,48 +23,47 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(Request $request): RedirectResponse
+ public function store(Request $request): RedirectResponse
 {
     $credentials = $request->only('email', 'password');
 
     if (Auth::attempt($credentials)) {
         $request->session()->regenerate();
+
         $user = Auth::user();
 
-        // Vérification de l'accès selon le rôle
-        // if ($user->role === 'admin') {
-        //     return redirect()->route('admin.dashboard');
-        // }
-
-        // if ($user->role === 'avocat') {
-        //     if (!$user->is_active) {
-        //         Auth::logout();
-        //         return back()->withErrors([
-        //             'email' => 'Votre compte avocat n\'est pas encore activé.',
-        //         ]);
-        //     }
-        //     return redirect()->route('avocat.dashboard');
-        // }
-
         if ($user->role === 'client') {
-            if ($user->statut_validation !== 'valide') {
+            // Assurez-vous que la relation client existe
+            if (!$user->client || $user->client->statut !== 'valide') {
                 Auth::logout();
+
                 return back()->withErrors([
                     'email' => 'Votre compte client est en attente de validation par l\'administrateur.',
                 ]);
             }
+
             return redirect()->route('client.dashboard');
         }
 
-        // Si rôle inconnu
+        // // Redirection selon les autres rôles
+        // if ($user->role === 'avocat') {
+        //     return redirect()->route('avocat.dashboard');
+        // }
+
+        // if ($user->role === 'admin') {
+        //     return redirect()->route('admin.dashboard');
+        // }
+
+        // Rôle inconnu
         Auth::logout();
         return back()->withErrors([
             'email' => 'Rôle utilisateur non reconnu.',
         ]);
     }
 
+    // Identifiants incorrects
     return back()->withErrors([
-        'email' => 'Les identifiants sont incorrects.',
+        'email' => 'Les identifiants fournis sont incorrects.',
     ]);
 }
 

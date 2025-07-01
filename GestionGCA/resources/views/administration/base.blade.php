@@ -2,7 +2,6 @@
 
   <body>
     <div class="wrapper">
-
         @include('administration.partials.side-bar')
 
         <div class="main-panel">
@@ -19,5 +18,6 @@
     </div>
 
     @include('administration.partials.javascript_section')
+    @yield('scripts')
   </body> 
 </html>

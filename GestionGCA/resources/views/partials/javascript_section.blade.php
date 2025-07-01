@@ -161,25 +161,6 @@ let currentStep = 0;
         return true;
     }
 
-    showStep(currentStep);
-    document.addEventListener("DOMContentLoaded", function () {
-    const target = document.querySelector("#infoClient");
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            target.classList.add("animate-fade-slide-in");
-          } else {
-            target.classList.remove("animate-fade-slide-in");
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-
-    observer.observe(target);
-  });
     //A propos
 document.addEventListener("DOMContentLoaded", function () {
   const section = document.querySelector("#bienvenue");
@@ -301,56 +282,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     services.forEach((item) => observer.observe(item));
   });
-  //test pour le choix des avocats
-  const avocatsParService = {
-        conseil: [
-            { nom: "Aissatou Diallo", id: "aissatou" },
-            { nom: "Mamadou Camara", id: "mamadou" }
-        ],
-        avocat: [
-            { nom: "Alpha Barry", id: "alpha" },
-            { nom: "Fatoumata Sow", id: "fatoumata" }
-        ],
-        juriste: [
-            { nom: "Ibrahima Bah", id: "ibrahima" },
-            { nom: "Nene Kourouma", id: "nene" }
-        ],
-        collaborateur: [
-            { nom: "Mohamed Sylla", id: "mohamed" },
-            { nom: "Aminata Condé", id: "aminata" }
-        ]
-    };
-    const selectService = document.querySelector('select[name="type_service"]');
-    const selectAvocat = document.getElementById('avocat_choisi');
-
-    selectService.addEventListener('change', function () {
-        const type = this.value;
-        const avocats = avocatsParService[type] || [];
-
-        // Réinitialiser la liste
-        selectAvocat.innerHTML = '<option value="">-- Sélectionnez un avocat --</option>';
-
-        if (avocats.length > 0) {
-            selectAvocat.disabled = false;
-
-            avocats.forEach(avocat => {
-                const option = document.createElement('option');
-                option.value = avocat.id;
-                option.textContent = avocat.nom;
-                selectAvocat.appendChild(option);
-            });
-        } else {
-            selectAvocat.disabled = true;
-        }
-    });
+  
     <!-- Script pour le dropdown -->
                                     
-    window.addEventListener('scroll', function () {
-        let dropdown = document.querySelector('.dropdown-menu.show');
-        if (dropdown) {
-            const toggle = document.getElementById('loginDropdown');
-            toggle.click(); 
-        }
-    });                            
+    // window.addEventListener('scroll', function () {
+    //     let dropdown = document.querySelector('.dropdown-menu.show');
+    //     if (dropdown) {
+    //         const toggle = document.getElementById('loginDropdown');
+    //         toggle.click(); 
+    //     }
+    // }); 
+    
+    // Gérer l'activation du lien de menu au clic
+$('.navbar-nav .nav-link').on('click', function() {
+    $('.navbar-nav .nav-link').removeClass('active'); 
+    $(this).addClass('active'); 
+});
+                           
 </script>
  

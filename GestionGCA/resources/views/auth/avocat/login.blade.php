@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Connexion Avocat</title>
 
-  <link rel="icon" href="{{ asset('administration/assets/img/ubo_logo.jpg') }}" type="image/x-icon" />
+  <link rel="icon" href="{{ asset('assets/img/logobg.png') }}" type="image/x-icon" />
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="{{ asset('administration/assets/css/bootstrap.min.css') }}" />
   
@@ -96,7 +96,7 @@
 
   <div class="login-card">
     <div class="text-center">
-      <img src="{{ asset('administration/assets/img/ubo_logo.jpg') }}" class="logo" alt="Logo cabinet" />
+      <img src="{{ asset('assets/img/logobg.png') }}" class="logo" alt="Logo cabinet" />
       <h3>Connexion Avocat</h3>
     </div>
 

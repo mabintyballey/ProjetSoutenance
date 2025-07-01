@@ -1,91 +1,148 @@
 <!-- Sidebar -->
-<div class="sidebar" style="background-color: #1a252f;">
-    <div class="sidebar-logo pt-3">
-      <!-- Logo Header -->
-      <div class="logo-header ml-0" style="background-color: #1a252f">
-       <a href="#" class="logo d-flex align-items-center">
-         <img src="{{ asset('assets/img/logobg.png') }}" alt="navbar brand" class="navbar-brand" height="70" width="70"/>
-                <span style="color: #aa9166">JUGE-CABINET</span>
-        </a>
-
-        <div class="nav-toggle">
-          <button class="btn btn-toggle toggle-sidebar">
-            <i class="gg-menu-right"></i>
-          </button>
-          <button class="btn btn-toggle sidenav-toggler">
-            <i class="gg-menu-left"></i>
-          </button>
-        </div>
-
-        <button class="topbar-toggler more">
-          <i class="gg-more-vertical-alt"></i>
-        </button>
-      </div>
-      <!-- End Logo Header -->
-    </div>
-
-    <div class="sidebar-wrapper scrollbar scrollbar-inner">
-      <div class="sidebar-content">
-        <ul class="nav nav-secondary">
-          <li class="nav-item {{ Route::is('admin.dashboard') ? 'active' : '' }}">
-            <a href="{{route('admin.dashboard')}}" class="nav-link text-light d-flex align-items-center py-2" style="background-color: #2c3e50;">
-              <i class="fas fa-home"></i>
-              <p>Tableau de bord</p>
+<div class="sidebar" data-background-color="dark">
+    <!-- Logo Header -->
+    <div class="sidebar-logo">
+        <div class="logo-header" data-background-color="dark">
+            <a href="{{ route(auth()->user()->role . '.dashboard') }}" class="logo d-flex align-items-center">
+                <img src="{{ asset('assets/img/logobg.png') }}" alt="navbar brand" height="50" width="50" />
+                <span class="ml-2" style="color: #aa9166; font-weight: bold;">JUGE-CABINET</span>
             </a>
-          </li>
 
-          <li class="nav-section">
-            <span class="sidebar-mini-icon">
-              <i class="fa fa-ellipsis-h"></i>
-            </span>
-            <h4 class="text-section">Menu</h4>
-          </li>
+            <!-- Toggler buttons -->
+            <div class="nav-toggle">
+                <button class="btn btn-toggle toggle-sidebar">
+                    <i class="gg-menu-right"></i>
+                </button>
+                <button class="btn btn-toggle sidenav-toggler">
+                    <i class="gg-menu-left"></i>
+                </button>
+            </div>
 
-           <li class="nav-item {{ Route::is('admin.avocats.index') ? 'active' : '' }}">
-          <a href="{{ route('admin.avocats.index') }}" class="nav-link text-light d-flex align-items-center py-2">
-            <i class="icon-graduation me-2"></i> Gestion Des Avocats
-          </a>
-        </li>
-
-          <li class="nav-item {{ Route::is('admin.clients.index') ? 'active' : '' }}">
-          <a href="{{ route('admin.clients.index') }}" class="nav-link text-light d-flex align-items-center py-2">
-            <i class="icon-user me-2"></i> Gestion Des Clients
-          </a>
-        </li>
-         <li class="nav-item {{ Route::is('admin.dossiers.index') ? 'active' : '' }}">
-          <a href="{{ route('admin.dossiers.index') }}" class="nav-link text-light d-flex align-items-center py-2">
-            <i class="icon-briefcase me-2"></i> Gestion des dossiers
-          </a>
-        </li>
-
-          <li class="nav-item">
-          <a href="#" class="nav-link text-light d-flex align-items-center py-2">
-            <i class="fa fa-envelope me-2"></i> Messagerie
-          </a>
-        </li>
-
-          <li class="nav-item">
-            <a href="#" class="nav-link text-light d-flex align-items-center py-2">
-              <i class="fas fa-archive me-2"></i> Archives & Historique
-            </a>
-         </li>
-          <li><hr class="text-secondary my-2"></li>
-           <li class="nav-item mb-1">
-          <a href="#" class="nav-link text-light d-flex align-items-center">
-            <i class="icon-information me-2"></i> Mon profile
-          </a>
-        </li>
-
-        <li class="nav-item mt-2">
-          <form action="{{ route('logout') }}" method="POST">
-            @csrf
-            <button type="submit" class="btn btn-danger w-100 d-flex align-items-center justify-content-center">
-              <i class="fas fa-sign-out-alt me-2"></i> Se déconnecter
+            <button class="topbar-toggler more">
+                <i class="gg-more-vertical-alt"></i>
             </button>
-          </form>
-        </li>
-        </ul>
-      </div>
+        </div>
     </div>
-  </div>
-  <!-- End Sidebar -->
+    <!-- End Logo Header -->
+
+    <!-- Sidebar Content -->
+    <div class="sidebar-wrapper scrollbar scrollbar-inner">
+        <div class="sidebar-content">
+            <ul class="nav nav-secondary">
+
+                <!-- Tableau de bord -->
+                <li class="nav-item {{ request()->routeIs(auth()->user()->role . '.dashboard') ? 'active' : '' }}">
+                    <a href="{{ route(auth()->user()->role . '.dashboard') }}">
+                        <i class="fas fa-home"></i>
+                        <p>Tableau de bord</p>
+                    </a>
+                </li>
+
+                <li class="nav-section">
+                    <span class="sidebar-mini-icon"><i class="fa fa-ellipsis-h"></i></span>
+                    <h4 class="text-section">Menu</h4>
+                </li>
+
+                <!-- Menu spécifique par rôle -->
+                @if(auth()->user()->role === 'admin')
+                    <li class="nav-item {{ request()->routeIs('admin.avocats.index') ? 'active' : '' }}">
+                        <a href="{{ route('admin.avocats.index') }}">
+                            <i class="icon-graduation"></i>
+                            <p>Gestion Des Avocats</p>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('admin.clients.index') ? 'active' : '' }}">
+                        <a href="{{ route('admin.clients.index') }}">
+                            <i class="icon-user"></i>
+                            <p>Gestion Des Clients</p>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('admin.dossiers.index') ? 'active' : '' }}">
+                        <a href="{{ route('admin.dossiers.index') }}">
+                            <i class="icon-briefcase"></i>
+                            <p>Gestion des dossiers</p>
+                        </a>
+                    </li>
+                @elseif(auth()->user()->role === 'avocat')
+                    <li class="nav-item {{ request()->routeIs('avocat.avocat.clients') ? 'active' : '' }}">
+                        <a href="{{ route('avocat.avocat.clients') }}">
+                            <i class="icon-user"></i>
+                            <p>Mes Clients</p>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('avocat.dossiers.mes') ? 'active' : '' }}">
+                        <a href="{{ route('avocat.dossiers.mes') }}">
+                            <i class="icon-briefcase"></i>
+                            <p>Gestion des dossiers</p>
+                        </a>
+                    </li>
+                     <li class="nav-item {{ request()->routeIs('rendezvous.index') ? 'active' : '' }}">
+                        <a href="{{ route('rendezvous.index') }}">
+                            <i class="icon-briefcase"></i>
+                            <p>Mes Rendez-Vous</p>
+                        </a>
+                    </li>
+                    
+                @elseif(auth()->user()->role === 'client')
+                    <li class="nav-item {{ request()->routeIs('client.requetes.index') ? 'active' : '' }}">
+                        <a href="{{ route('client.requetes.index') }}">
+                            <i class="icon-folder-alt"></i>
+                            <p>Mes requêtes</p>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('client.documents.index') ? 'active' : '' }}">
+                        <a href="{{ route('client.documents.index') }}">
+                            <i class="icon-doc"></i>
+                            <p>Documents envoyés</p>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('client.requetes.createNouvelleRequete') ? 'active' : '' }}">
+                        <a href="{{ route('client.requetes.createNouvelleRequete') }}">
+                            <i class="icon-plus"></i>
+                            <p>Soumettre une requête</p>
+                        </a>
+                    </li>
+                    <li class="nav-item {{ request()->routeIs('client.dossiers.suivi') ? 'active' : '' }}">
+                        <a href="{{ route('client.dossiers.suivi') }}">
+                            <i class="icon-briefcase"></i>
+                            <p>État des dossiers</p>
+                        </a>
+                    </li>
+                      <li class="nav-item {{ request()->routeIs('rendezvous.index') ? 'active' : '' }}">
+                          <a href="{{ route('rendezvous.index') }}">
+                              <i class="icon-briefcase"></i>
+                              <p>Mes Rendez-Vous</p>
+                          </a>
+                      </li>
+                @endif
+
+                <!-- Menu partagé -->
+                <li class="nav-item {{ request()->routeIs('messagerie.index') ? 'active' : '' }}">
+                    <a href="{{ route('messagerie.index') }}">
+                        <i class="fa fa-envelope"></i>
+                        <p>Messagerie</p>
+                    </a>
+                </li>
+
+                <div class="divider"></div>
+
+                <li class="nav-item">
+                    <a href="{{ route('profile.edit') }}">
+                        <i class="icon-settings"></i>
+                        <p>Profil / Paramètres</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-danger w-100">
+                            <i class="icon-logout"></i> Se déconnecter
+                        </button>
+                    </form>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- End Sidebar -->

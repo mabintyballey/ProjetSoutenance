@@ -24,12 +24,11 @@
                 <div class="row g-3">
                     @php
                         $fields = [
-                            ['name' => 'name', 'label' => 'Nom', 'type' => 'text', 'icon' => 'fa-user'],
+                            ['name' => 'nom', 'label' => 'Nom', 'type' => 'text', 'icon' => 'fa-user'],
                             ['name' => 'prenom', 'label' => 'Prénom', 'type' => 'text', 'icon' => 'fa-user-tag'],
                             ['name' => 'email', 'label' => 'Email', 'type' => 'email', 'icon' => 'fa-envelope'],
                             ['name' => 'telephone', 'label' => 'Téléphone', 'type' => 'text', 'icon' => 'fa-phone'],
                             ['name' => 'adresse', 'label' => 'Adresse', 'type' => 'text', 'icon' => 'fa-map-marker-alt'],
-                            ['name' => 'specialite', 'label' => 'Spécialité', 'type' => 'text', 'icon' => 'fa-briefcase'],
                             ['name' => 'password', 'label' => 'Mot de passe', 'type' => 'password', 'icon' => 'fa-lock'],
                         ];
                     @endphp
@@ -50,6 +49,38 @@
                         </div>
                     @endforeach
 
+                    <!-- Domaine -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold" style="color: #001F3D;">Domaine juridique</label>
+                        <div class="input-group shadow-sm">
+                            <span class="input-group-text bg-white border-end-0">
+                                <i class="fas fa-gavel text-primary"></i>
+                            </span>
+                            <select id="domaine_id" name="domaine_id" class="form-select border-start-0" required>
+                                <option value="">-- Sélectionner un domaine --</option>
+                                @foreach($domaines as $domaine)
+                                    <option value="{{ $domaine->id }}" data-specialites='@json($domaine->specialites)'>
+                                        {{ $domaine->nom }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Spécialité -->
+                    <div class="col-md-6">
+                        <label class="form-label fw-semibold" style="color: #001F3D;">Spécialité</label>
+                        <div class="input-group shadow-sm">
+                            <span class="input-group-text bg-white border-end-0">
+                                <i class="fas fa-briefcase text-primary"></i>
+                            </span>
+                            <select name="specialite_id" id="specialite_id" class="form-select border-start-0">
+                                <option value="">-- Sélectionner une spécialité --</option>
+                            </select>
+                        </div>
+                    </div>
+
+
                     <!-- Photo -->
                     <div class="col-md-6">
                         <label class="form-label fw-semibold" style="color: #001F3D;">Photo</label>
@@ -60,6 +91,13 @@
                             <input type="file" name="photo" class="form-control border-start-0" accept="image/*">
                         </div>
                     </div>
+
+                    <!-- Aperçu de la photo -->
+                    <div class="text-center">
+                        <img id="photo-preview" src="#" alt="Aperçu de la photo"
+                            class="img-thumbnail mt-2 shadow-sm d-none"
+                            style="max-width: 100px; border: 2px solid rgb(77, 91, 100); border-radius: 10px;">
+                    </div>
                 </div>
 
                 <!-- Boutons -->
@@ -69,7 +107,7 @@
                     </button>
 
                     <button type="button" onclick="document.getElementById('form-avocat').reset();"
-                            class="btn text-white fw-semibold" style="background-color: #aa9166;">
+                        class="btn text-white fw-semibold" style="background-color: #aa9166;">
                         <i class="fas fa-times me-1"></i> Annuler
                     </button>
 
@@ -81,4 +119,68 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const input = document.querySelector('input[name="photo"]');
+        const preview = document.getElementById('photo-preview');
+
+        input.addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    preview.src = event.target.result;
+                    preview.classList.remove('d-none');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = '#';
+                preview.classList.add('d-none');
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const domaineSelect = document.getElementById('domaine_id');
+        const specialiteSelect = document.getElementById('specialite_id');
+
+        domaineSelect.addEventListener('change', function () {
+            const selectedOption = domaineSelect.options[domaineSelect.selectedIndex];
+            const specialites = JSON.parse(selectedOption.dataset.specialites || '[]');
+
+            // Vider les options précédentes
+            specialiteSelect.innerHTML = '<option value="">-- Sélectionner une spécialité --</option>';
+
+            // Ajouter les nouvelles spécialités
+            specialites.forEach(spec => {
+                const option = document.createElement('option');
+                option.value = spec.id;
+                option.text = spec.nom;
+                specialiteSelect.appendChild(option);
+            });
+        });
+
+        // Preview image logic (conservé)
+        const input = document.querySelector('input[name="photo"]');
+        const preview = document.getElementById('photo-preview');
+
+        input.addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    preview.src = event.target.result;
+                    preview.classList.remove('d-none');
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = '#';
+                preview.classList.add('d-none');
+            }
+        });
+    });
+</script>
 @endsection

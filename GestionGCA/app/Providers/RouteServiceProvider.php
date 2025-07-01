@@ -46,5 +46,19 @@ class RouteServiceProvider extends ServiceProvider
             default => '/dashboard'
         };
    }
+   // Dans app/Providers/RouteServiceProvider.php
+protected function map()
+{
+    $this->mapWebRoutes();
+    $this->mapAvocatRoutes(); 
+}
+
+protected function mapAvocatRoutes()
+{
+    Route::middleware('web')
+        ->namespace($this->namespace)
+        ->group(base_path('routes/avocat.php'));
+}
+
 
 }

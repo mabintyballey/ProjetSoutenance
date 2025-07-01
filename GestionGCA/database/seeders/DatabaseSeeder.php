@@ -3,7 +3,10 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use Database\Seeders\SpecialiteSeeder as SeedersSpecialiteSeeder;
 use Illuminate\Database\Seeder;
+use SpecialiteSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,6 +23,8 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             AdminSeeder::class,
+            DomaineSeeder::class,
+            SeedersSpecialiteSeeder::class
         ]);
     }
 }

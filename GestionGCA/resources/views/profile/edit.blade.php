@@ -1,21 +1,31 @@
-
 @extends('administration.base')
 
 @section('content')
+<div class="container py-5">
+    <h2 class="mb-4 fw-bold text-light-emphasis">⚙️ Paramètres du profil</h2>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-profile-information-form')
-                </div>
-            </div>
-
-            <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                <div class="max-w-xl">
-                    @include('profile.partials.update-password-form')
-                </div>
-            </div>
+    {{-- ✅ Carte Informations du profil --}}
+    <div class="card shadow-sm border-0 rounded-4 mb-5" style="background-color: #1f2d35; color: #fff;">
+        <div class="card-header rounded-top-4 py-3 px-4" style="background-color: #aa9166;">
+            <h5 class="mb-0">
+                <i class="bi bi-person-fill me-2"></i> Informations du profil
+            </h5>
+        </div>
+        <div class="card-body p-4">
+            @include('profile.partials.update-profile-information-form')
         </div>
     </div>
+
+    {{-- 🔐 Carte Changement de mot de passe --}}
+    <div class="card shadow-sm border-0 rounded-4" style="background-color: #1f2d35; color: #fff;">
+        <div class="card-header rounded-top-4 py-3 px-4" style="background-color: #aa9166;">
+            <h5 class="mb-0">
+                <i class="bi bi-lock-fill me-2"></i> Modifier le mot de passe
+            </h5>
+        </div>
+        <div class="card-body p-4">
+            @include('profile.partials.update-password-form')
+        </div>
+    </div>
+</div>
 @endsection

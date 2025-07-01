@@ -1,6 +1,7 @@
 @extends('administration.base')
 
 @section('content')
+<!-- Styles -->
 <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -28,8 +29,7 @@
 </style>
 
 <div class="container py-5">
-
-    <!-- Titre principal -->
+    <!-- Titre -->
     <div class="text-center mb-5 mt-3">
         <h1 class="display-6 fw-bold" style="color: #001F3D;">
             <i class="fas fa-gavel fa-lg me-2 text-warning"></i> Gestion des Avocats
@@ -40,26 +40,48 @@
 
     <!-- Filtres -->
     <div class="row g-3 mb-4">
+        <!-- Recherche -->
         <div class="col-md-4">
             <form method="GET" action="{{ route('admin.avocats.index') }}">
                 <input type="text" name="search" class="form-control shadow-sm"
-                    style="border: 1px solid #aa9166; background-color: rgba(0,0,0,.03);" placeholder="🔍 Rechercher un avocat..." value="{{ request('search') }}">
+                    style="border: 1px solid #aa9166; background-color: rgba(0,0,0,.03);" placeholder="🔍 Rechercher un avocat..."
+                    value="{{ request('search') }}">
+                <input type="hidden" name="sort_by" value="{{ request('sort_by') }}">
+                <input type="hidden" name="domaine_id" value="{{ request('domaine_id') }}">
             </form>
         </div>
-
+        <!-- Tri -->
         <div class="col-md-4">
             <form method="GET" action="{{ route('admin.avocats.index') }}">
                 <select name="sort_by" class="form-select shadow-sm" onchange="this.form.submit()"
                     style="border: 1px solid #3498db; background-color: rgba(0,0,0,.03);">
                     <option value="">-- Trier par --</option>
-                    <option value="name" {{ request('sort_by') == 'name' ? 'selected' : '' }}>Nom</option>
+                    <option value="nom" {{ request('sort_by') == 'nom' ? 'selected' : '' }}>Nom</option>
                     <option value="specialite" {{ request('sort_by') == 'specialite' ? 'selected' : '' }}>Spécialité</option>
                     <option value="is_active" {{ request('sort_by') == 'is_active' ? 'selected' : '' }}>Statut</option>
                 </select>
+                <input type="hidden" name="search" value="{{ request('search') }}">
+                <input type="hidden" name="domaine_id" value="{{ request('domaine_id') }}">
             </form>
         </div>
-
-        <div class="col-md-4 text-end">
+        <!-- Domaine -->
+        <div class="col-md-4">
+            <form method="GET" action="{{ route('admin.avocats.index') }}">
+                <select name="domaine_id" class="form-select shadow-sm" onchange="this.form.submit()"
+                    style="border: 1px solid #27ae60; background-color: rgba(0,0,0,.03);">
+                    <option value="">-- Filtrer par domaine --</option>
+                    @foreach ($domaines as $domaine)
+                        <option value="{{ $domaine->id }}" {{ request('domaine_id') == $domaine->id ? 'selected' : '' }}>
+                            {{ $domaine->nom }}
+                        </option>
+                    @endforeach
+                </select>
+                <input type="hidden" name="search" value="{{ request('search') }}">
+                <input type="hidden" name="sort_by" value="{{ request('sort_by') }}">
+            </form>
+        </div>
+        <!-- Ajouter -->
+        <div class="col-md-12 text-end mt-3">
             <a href="{{ route('admin.avocats.create') }}" class="btn" style="background-color: #aa9166; color: white;">
                 <i class="fas fa-user-plus me-1"></i> Ajouter un avocat
             </a>
@@ -67,96 +89,36 @@
     </div>
 
     <!-- Liste des avocats -->
-@forelse($avocats as $avocat)
-<div class="card mb-3 border-0 shadow-sm card-hover" style="min-height: 150px;">
-    <div class="row g-0 align-items-center">
-        <!-- Image -->
-        <div class="col-md-3">
-            <div class="overflow-hidden rounded-start h-100">
-                <img src="{{ asset('storage/' . $avocat->photo) }}"
-                     class="img-fluid w-100 h-100"
-                     style="object-fit: cover; min-height: 100px; max-height: 150px;"
-                     alt="{{ $avocat->name }}">
-            </div>
-        </div>
+    @forelse($avocats as $avocat)
+        @include('administration.avocats._card', ['avocat' => $avocat])
+    @empty
+        <div class="alert alert-info text-center">Aucun avocat trouvé.</div>
+    @endforelse
 
-        <!-- Informations -->
-        <div class="col-md-9">
-            <div class="card-body py-3 px-3 d-flex justify-content-between align-items-center flex-wrap">
-                <!-- Infos -->
-                <div class="me-3" style="line-height: 1.2;">
-                    <h5 class="fw-bold mb-1 text-primary" style="font-size: 1rem; color: #001F3D;">
-                        {{ $avocat->name }} {{ $avocat->prenom }}
-                    </h5>
-                    <p class="mb-1 text-muted fw-bold" style="font-size: 0.85rem;">
-                        <i class="fas fa-briefcase me-1"></i>{{ $avocat->specialite }}
-                    </p>
-                    <small class="text-muted fw-bold" style="font-size: 0.8rem;">
-                        <i class="fas fa-envelope me-1"></i>{{ $avocat->email }}
-                    </small>
-                </div>
-
-                <!-- Actions -->
-                <div class="d-flex align-items-center gap-2 mt-3 mt-md-0 flex-wrap">
-                    <!-- Badge statut -->
-                    @if($avocat->is_active)
-                        <span class="badge bg-success">Actif</span>
-                    @else
-                        <span class="badge bg-danger">Inactif</span>
-                    @endif
-
-                    <!-- Activer / Désactiver -->
-                    <form action="{{ route('admin.avocats.toggle', $avocat) }}" method="POST">
-                        @csrf
-                        <button type="submit"
-                                class="btn btn-sm {{ $avocat->is_active ? 'btn-warning' : 'btn-success' }}">
-                            {{ $avocat->is_active ? 'Désactiver' : 'Activer' }}
-                        </button>
-                    </form>
-
-                    <!-- Menu dropdown -->
-                    <div class="dropdown">
-                        <button class="btn btn-outline-warning btn-sm" data-bs-toggle="dropdown">
-                            <i class="fas fa-cogs"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-                            <li>
-                                <a class="dropdown-item" href="{{ route('admin.avocats.show', $avocat->id) }}">
-                                    <i class="fas fa-eye me-1"></i> Voir
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('admin.avocats.edit', $avocat->id) }}">
-                                    <i class="fas fa-edit me-1"></i> Modifier
-                                </a>
-                            </li>
-                            <li>
-                                <form action="{{ route('admin.avocats.destroy', $avocat->id) }}"
-                                      method="POST"
-                                      onsubmit="return confirm('Supprimer cet avocat ?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="dropdown-item text-danger">
-                                        <i class="fas fa-trash-alt me-1"></i> Supprimer
-                                    </button>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@empty
-    <div class="alert alert-info text-center">Aucun avocat trouvé.</div>
-@endforelse
-
-    <!-- Pagination -->
     <div class="d-flex justify-content-center mt-4">
         {{ $avocats->links('pagination::bootstrap-5') }}
     </div>
-
 </div>
+
+<!-- Modals globaux -->
+@include('administration.avocats._modals')
+@include('administration.avocats._toggle_modals')
 @endsection
- 
+
+
+@section('scripts')
+<script>
+    function setDeleteAction(avocatId) {
+        const form = document.getElementById('deleteAvocatForm');
+        form.action = `/admin/avocats/${avocatId}`;
+    }
+
+    @if(session('error') === 'avocat_a_dossiers')
+        document.addEventListener("DOMContentLoaded", function () {
+            const modalErreur = new bootstrap.Modal(document.getElementById('avocatHasDossiersModal'));
+            modalErreur.show();
+        });
+    @endif
+</script>
+@endsection
+

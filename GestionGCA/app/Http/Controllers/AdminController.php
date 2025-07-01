@@ -16,6 +16,23 @@ class AdminController extends Controller
     {
         //
     }
+public function dashboard()
+{
+    $clientsCount = User::where('role', 'client')->count();
+    $avocatsCount = User::where('role', 'avocat')->count();
+    $dossiersCount = Dossier::count();
+    $totalDossiersTermines = Dossier::where('statut', 'termine')->count();
+    $visitorsCount = 1245; // Exemple : récupère ton vrai nombre de visiteurs
+
+    return view('administration.pages.dashboard', compact(
+        'clientsCount',
+        'avocatsCount',
+        'dossiersCount',
+        'totalDossiersTermines',
+        'visitorsCount'
+    ));
+}
+
 
     /**
      * Show the form for creating a new resource.
@@ -42,23 +59,12 @@ class AdminController extends Controller
     }
 
 
-    public function dashboard()
-    {
-        $clientsCount = User::where('role', 'client')->count();
-        $avocatsCount = User::where('role', 'avocat')->count();
-        $dossiersCount = Dossier::count();
-        $dossiersParStatut = Dossier::selectRaw('statut, count(*) as total')
-                                    ->groupBy('statut')
-                                    ->pluck('total', 'statut');
-
-        return view('administration.pages.dashboard', compact('clientsCount', 'avocatsCount', 'dossiersCount', 'dossiersParStatut',));
-    }
     public function indexClients()
     {
-        $clients = User::where('role', 'client')->paginate(10);
-        return view('admin.clients.index', compact('clients'));
+        $clients = User::where('role', 'client')->paginate(5);
+        return view('administration.clients.index', compact('clients'));
     }
-
+    
     public function indexAvocats()
     {
         $avocats = User::where('role', 'avocat')->paginate(10);

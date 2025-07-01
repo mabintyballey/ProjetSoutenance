@@ -18,6 +18,8 @@
     "dependencies": {
         "@tailwindcss/vite": "^4.1.1",
         "autoprefixer": "^10.4.21",
-        "postcss": "^8.5.3"
+        "laravel-echo": "^2.1.6",
+        "postcss": "^8.5.3",
+        "pusher-js": "^8.4.0"
     }
 }

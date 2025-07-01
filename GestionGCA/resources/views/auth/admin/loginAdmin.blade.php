@@ -7,7 +7,7 @@
 
     <link rel="stylesheet" href="{{ asset('administration/assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('administration/assets/css/fonts.min.css') }}">
-    <link rel="icon" href="{{ asset('administration/assets/img/ubo_logo.jpg') }}" type="image/x-icon" />
+    <link rel="icon" href="{{ asset('assets/img/logobg.png') }}" type="image/x-icon" />
     
     <style>
         body {

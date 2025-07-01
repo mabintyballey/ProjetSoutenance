@@ -1,64 +1,73 @@
-<section>
-    <header>
-        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-            {{ __('Profile Information') }}
-        </h2>
+<section class="shadow-lg border-0 rounded-4 mb-5">
+    <div class="card-header text-white rounded-top-4 py-3 px-4">
+        <small class="text-light">Mettez à jour votre nom et adresse email associée à votre compte.</small>
+    </div>
 
-        <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {{ __("Update your account's profile information and email address.") }}
-        </p>
-    </header>
+    <div class="p-4">
+        {{-- Formulaire de renvoi du lien de vérification --}}
+        <form id="send-verification" method="POST" action="{{ route('verification.send') }}">
+            @csrf
+        </form>
 
-    <form id="send-verification" method="post" action="{{ route('verification.send') }}">
-        @csrf
-    </form>
+        {{-- Formulaire de mise à jour --}}
+        <form method="POST" action="{{ route('profile.update') }}">
+            @csrf
+            @method('patch')
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
-        @csrf
-        @method('patch')
+            {{-- 🧑 Nom complet --}}
+            <div class="mb-4">
+                <label for="name" class="form-label fw-semibold">Nom complet</label>
+                <input type="text" id="name" name="name"
+                       class="form-control @error('name') is-invalid @enderror"
+                       value="{{ old('name', $user->name) }}" required autofocus>
+                <div class="invalid-feedback">
+                    @foreach($errors->get('name') as $message)
+                        {{ $message }}
+                    @endforeach
+                </div>
+            </div>
 
-        <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
-            <x-input-error class="mt-2" :messages="$errors->get('name')" />
-        </div>
+            {{-- 📧 Email --}}
+            <div class="mb-4">
+                <label for="email" class="form-label fw-semibold">Adresse Email</label>
+                <input type="email" id="email" name="email"
+                       class="form-control @error('email') is-invalid @enderror"
+                       value="{{ old('email', $user->email) }}" required>
+                <div class="invalid-feedback">
+                    @foreach($errors->get('email') as $message)
+                        {{ $message }}
+                    @endforeach
+                </div>
 
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
-            <x-input-error class="mt-2" :messages="$errors->get('email')" />
-
-            @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
-                <div>
-                    <p class="text-sm mt-2 text-gray-800 dark:text-gray-200">
-                        {{ __('Your email address is unverified.') }}
-
-                        <button form="send-verification" class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800">
-                            {{ __('Click here to re-send the verification email.') }}
+                {{-- 📩 Vérification email --}}
+                @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
+                    <div class="alert alert-warning mt-3 py-2 px-3 small">
+                        Votre adresse email n’est pas encore vérifiée.
+                        <button form="send-verification" class="btn btn-sm btn-link p-0 m-0 align-baseline">
+                            <u>Cliquez ici pour renvoyer le lien de vérification</u>
                         </button>
-                    </p>
+                    </div>
 
                     @if (session('status') === 'verification-link-sent')
-                        <p class="mt-2 font-medium text-sm text-green-600 dark:text-green-400">
-                            {{ __('A new verification link has been sent to your email address.') }}
-                        </p>
+                        <div class="alert alert-success mt-2 py-2 px-3 small mb-0">
+                            Un nouveau lien de vérification a été envoyé à votre adresse email.
+                        </div>
                     @endif
-                </div>
-            @endif
-        </div>
+                @endif
+            </div>
 
-        <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('Save') }}</x-primary-button>
+            {{-- ✅ Bouton Enregistrer + Confirmation --}}
+            <div class="d-flex justify-content-between align-items-center mt-4">
+                <button type="submit" class="btn px-4" style="background-color: #aa9166;">
+                    <i class="bi bi-check2-circle me-1"></i> Enregistrer
+                </button>
 
-            @if (session('status') === 'profile-updated')
-                <p
-                    x-data="{ show: true }"
-                    x-show="show"
-                    x-transition
-                    x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm text-gray-600 dark:text-gray-400"
-                >{{ __('Saved.') }}</p>
-            @endif
-        </div>
-    </form>
+                @if (session('status') === 'profile-updated')
+                    <div class="alert alert-success mb-0 py-2 px-3 small fade show" role="alert">
+                        ✔️ Profil mis à jour avec succès.
+                    </div>
+                @endif
+            </div>
+        </form>
+    </div>
 </section>

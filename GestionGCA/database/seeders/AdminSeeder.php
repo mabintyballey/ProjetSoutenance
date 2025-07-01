@@ -11,17 +11,16 @@ class AdminSeeder extends Seeder
     public function run(): void
     {
         User::updateOrCreate(
-            ['email' => 'admin@cabinet.com'],
+            ['email' => 'gescaguinee224@gmail.com'],
             [
-                'name' => 'Mabinty Balley',
-                'prenom' => 'Bangoura',
-                'email' => 'admin@cabinet.com',
+                'nom' => 'DIENG',
+                'prenom' => 'Amadou',
+                'email' => 'gescaguinee224@gmail.com',
                 'password' => Hash::make('password123'), 
                 'role' => 'admin',
+                'telephone'=>'623906351',
                 'adresse' => 'Bureau Central',
-                'is_active' => true,
                 'photo' => 'admin.jpg',
-                'statut_validation' => 'valide',
             ]
         );
     }

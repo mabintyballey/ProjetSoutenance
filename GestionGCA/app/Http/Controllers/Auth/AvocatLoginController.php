@@ -14,22 +14,34 @@ class AvocatLoginController extends Controller
         return view('auth.avocat.login');
     }
 
-    public function login(Request $request)
-    {
-        $credentials = $request->only('email', 'password');
-        // Vérifie si l'utilisateur existe
-         $user = User::where('email', $request->email)->first();
+   public function login(Request $request)
+{
+    $credentials = $request->only('email', 'password');
 
-         if (!$user->is_active) {
-            return back()->with('inactive_account', 'Votre compte est désactivé. Veuillez contacter l\'administrateur.');
-        }
-        if (Auth::attempt($credentials) && Auth::user()->role === 'avocat') {
-            return redirect()->intended('/avocat/dashboard');
-        }
+    // Récupère l'utilisateur par email
+    $user = User::where('email', $request->email)->first();
 
+    // Vérifie si l'utilisateur existe
+    if (!$user) {
         return back()->withErrors([
-            'email' => 'Identifiants invalides ou vous n\'êtes pas un avocat.',
+            'email' => 'Aucun compte trouvé avec cet email.',
         ]);
     }
+
+    // Vérifie si c'est un avocat et s'il est actif
+    if ($user->role === 'avocat' && (!$user->avocat || !$user->avocat->is_active)) {
+        return back()->with('inactive_account', 'Votre compte est désactivé. Veuillez contacter l\'administrateur.');
+    }
+
+    // Authentification
+    if (Auth::attempt($credentials) && Auth::user()->role === 'avocat') {
+        return redirect()->intended('/avocat/dashboard');
+    }
+
+    return back()->withErrors([
+        'email' => 'Identifiants invalides ou vous n\'êtes pas un avocat.',
+    ]);
+}
+
 }
 

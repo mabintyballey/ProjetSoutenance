@@ -30,6 +30,20 @@
             <!-- Page Content -->
             <main>
                 {{ $slot }}
+                <!-- Toast -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3 z-index-fixed" style="z-index: 9999;">
+    <div id="toast-message" class="toast text-bg-info" role="alert" data-bs-delay="7000" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">💬 Nouveau message</strong>
+            <small class="text-muted">Maintenant</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Fermer"></button>
+        </div>
+        <div class="toast-body" id="toast-body-content">
+            Nouveau message reçu.
+        </div>
+    </div>
+</div>
+
             </main>
         </div>
     </body>
